@@ -7,6 +7,7 @@ node_modules
 
 # testing
 coverage
+*.lcov
 
 # next.js
 .next/
@@ -34,3 +35,5 @@ yarn-error.log*
 
 # database
 dbdata
+
+build

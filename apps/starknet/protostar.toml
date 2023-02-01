@@ -1,0 +1,9 @@
+[project]
+protostar-version = "0.9.1"
+lib-path = "lib"
+cairo-path = ["lib/open_zeppelin/src"]
+
+[contracts]
+sample_token = ["src/sample_token.cairo"]
+orderbook = ["src/orderbook.cairo"]
+
