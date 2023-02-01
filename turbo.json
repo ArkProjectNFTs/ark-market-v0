@@ -12,6 +12,12 @@
     "db:generate": {
       "cache": false
     },
+    "db:reset": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    },
     "db:push": {
       "cache": false
     },

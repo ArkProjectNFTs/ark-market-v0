@@ -7,9 +7,13 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
+    "build": "dotenv -- turbo run build",
+    "dev": "dotenv -- turbo run dev",
+    "lint": "dotenv -- turbo run lint",
+    "db:generate": "dotenv -- turbo run db:generate",
+    "db:migrate": "dotenv -c -- turbo run db:migrate",
+    "db:reset": "dotenv -c -- turbo run db:reset",
+    "db:push": "dotenv -- turbo run db:push",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
@@ -20,6 +24,8 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "dotenv-cli": "^7.0.0"
+  },
   "packageManager": "yarn@1.22.19"
 }
