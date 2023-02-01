@@ -1,5 +1,4 @@
-`use client`;
-
+"use client";
 import { ChakraProvider } from "@chakra-ui/react";
 
 export default function RootLayout({
@@ -8,11 +7,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ChakraProvider>
-      <html>
-        <head />
-        <body>{children}</body>
-      </html>
-    </ChakraProvider>
+    <html>
+      <head />
+      <body>
+        <ChakraProvider>{children}</ChakraProvider>
+      </body>
+    </html>
   );
 }
