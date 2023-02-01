@@ -8,12 +8,13 @@
   ],
   "scripts": {
     "build": "dotenv -- turbo run build",
-    "dev": "dotenv -- turbo run dev",
+    "dev": "dotenv -- turbo run dev --parallel",
     "lint": "dotenv -- turbo run lint",
     "db:generate": "dotenv -- turbo run db:generate",
-    "db:migrate": "dotenv -c -- turbo run db:migrate",
-    "db:reset": "dotenv -c -- turbo run db:reset",
-    "db:push": "dotenv -- turbo run db:push",
+    "db:migrate:dev": "dotenv -e ./.env.local -- turbo --filter=database run db:migrate:dev",
+    "db:reset": "dotenv -- turbo run db:reset",
+    "db:migrate:deploy": "dotenv -e ./.env.local -- turbo --filter=database run db:migrate:deploy",
+    "db:push": "dotenv -e ./.env.local -- turbo run db:push",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {

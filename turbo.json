@@ -15,8 +15,11 @@
     "db:reset": {
       "cache": false
     },
-    "db:migrate": {
-      "cache": false
+    "db:migrate:deploy": {
+      "outputs": []
+    },
+    "db:migrate:dev": {
+      "outputs": []
     },
     "db:push": {
       "cache": false

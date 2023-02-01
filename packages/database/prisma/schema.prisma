@@ -18,9 +18,3 @@ model Listing {
   tokenId      Int
   collectionId Int
 }
-
-model Profile {
-  id       Int    @id @default(autoincrement())
-  biograpy String // Intentional typo!
-}
-

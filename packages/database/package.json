@@ -12,9 +12,10 @@
   },
   
   "scripts": {
-    "db:migrate": "prisma migrate dev --skip-generate",
     "db:generate": "prisma generate",
     "db:reset": "prisma migrate reset",
-    "db:push": "prisma db push --skip-generate"
+    "db:push": "prisma db push --skip-generate",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev  --name 'niftyroll' --skip-generate"
   }
 }
