@@ -9,16 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/pro-theme": "^0.0.63",
     "@chakra-ui/react": "^2.4.9",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "database": "*",
     "framer-motion": "^8.5.5",
     "next": "^13.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.7.1",
-    "ui": "*",
-    "database": "*"
+    "react-icons": "^4.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

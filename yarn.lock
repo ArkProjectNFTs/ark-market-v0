@@ -239,6 +239,11 @@
     "@chakra-ui/shared-utils" "2.0.5"
     "@chakra-ui/spinner" "2.0.13"
 
+"@chakra-ui/anatomy@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/anatomy/-/anatomy-2.1.1.tgz#819a1458ff727157e5500a69fc26bfea6e944495"
+  integrity sha512-LUHAoqJAgxAqmyckG5bUpBrfEo1FleEyY+1A8hkWciy58gZ+h3GoY9oBpHcdo7XdHPpy3G+3hieK/7i9NLwxAw==
+
 "@chakra-ui/anatomy@2.1.2":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@chakra-ui/anatomy/-/anatomy-2.1.2.tgz#ea66b1841e7195da08ddc862daaa3f3e56e565f5"
@@ -575,6 +580,14 @@
     "@chakra-ui/react-context" "2.0.7"
     "@chakra-ui/react-use-safe-layout-effect" "2.0.5"
 
+"@chakra-ui/pro-theme@^0.0.63":
+  version "0.0.63"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/pro-theme/-/pro-theme-0.0.63.tgz#b2273500e7dd52642499c1426c95f0ad3dddc1b5"
+  integrity sha512-ONCF3M9fM8NYrS95fusg9BLMXZwLQGNza234KZVRQhPr/0povNGZ4V7eLkKDNz3GXujRmCp43BpCJQxxIeMnhQ==
+  dependencies:
+    "@chakra-ui/styled-system" "2.5.1"
+    "@chakra-ui/theme-tools" "2.0.16"
+
 "@chakra-ui/progress@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@chakra-ui/progress/-/progress-2.1.5.tgz#eb6a47adf2bff93971262d163461d390782a04ff"
@@ -811,6 +824,11 @@
     "@chakra-ui/form-control" "2.0.17"
     "@chakra-ui/shared-utils" "2.0.5"
 
+"@chakra-ui/shared-utils@2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/shared-utils/-/shared-utils-2.0.4.tgz#8661f2b48dd93d04151b10a894a4290c9d9a080c"
+  integrity sha512-JGWr+BBj3PXGZQ2gxbKSD1wYjESbYsZjkCeE2nevyVk4rN3amV1wQzCnBAhsuJktMaZD6KC/lteo9ou9QUDzpA==
+
 "@chakra-ui/shared-utils@2.0.5":
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/@chakra-ui/shared-utils/-/shared-utils-2.0.5.tgz#cb2b49705e113853647f1822142619570feba081"
@@ -856,6 +874,15 @@
     "@chakra-ui/icon" "3.0.16"
     "@chakra-ui/react-context" "2.0.7"
     "@chakra-ui/shared-utils" "2.0.5"
+
+"@chakra-ui/styled-system@2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/styled-system/-/styled-system-2.5.1.tgz#d76f0898d5036353947bc83afb2e1c3cad3d374a"
+  integrity sha512-HhaXR/r5eGlC7vkoOWQ31yZEj+Aq+kFee7ZZb0fBRGKQichn06S9Ugr8CsFyzb+jNexHdtBlIcTBm0ufJ8HsFA==
+  dependencies:
+    "@chakra-ui/shared-utils" "2.0.4"
+    csstype "^3.0.11"
+    lodash.mergewith "4.6.2"
 
 "@chakra-ui/styled-system@2.5.2":
   version "2.5.2"
@@ -925,6 +952,15 @@
   dependencies:
     "@chakra-ui/form-control" "2.0.17"
     "@chakra-ui/shared-utils" "2.0.5"
+
+"@chakra-ui/theme-tools@2.0.16":
+  version "2.0.16"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/theme-tools/-/theme-tools-2.0.16.tgz#17caae14a61f93759f072b16c7346489eb8be643"
+  integrity sha512-B/LD+2LNDeHYd/LVCHIJqckVZfhrycTUpNbhRVAiDRaS0AAcsPxKas7liTFkkMkM076YjiHlcla3KpVX+E9tzg==
+  dependencies:
+    "@chakra-ui/anatomy" "2.1.1"
+    "@chakra-ui/shared-utils" "2.0.4"
+    color2k "^2.0.0"
 
 "@chakra-ui/theme-tools@2.0.17":
   version "2.0.17"

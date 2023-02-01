@@ -6,6 +6,14 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
   "exclude": [
     "node_modules"
   ]

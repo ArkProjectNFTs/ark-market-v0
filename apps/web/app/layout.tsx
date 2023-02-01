@@ -1,5 +1,7 @@
 "use client";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
+import Header from "header";
+import { theme } from "../theme";
 
 export default function RootLayout({
   children,
@@ -10,7 +12,11 @@ export default function RootLayout({
     <html>
       <head />
       <body>
-        <ChakraProvider>{children}</ChakraProvider>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <ChakraProvider theme={theme}>
+          <Header />
+          {children}
+        </ChakraProvider>
       </body>
     </html>
   );

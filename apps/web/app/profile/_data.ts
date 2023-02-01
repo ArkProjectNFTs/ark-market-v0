@@ -1,32 +1,32 @@
 export const images = [
   {
     id: '01',
-    src: 'https://images.unsplash.com/photo-1602024242516-fbc9d4fda4b6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
+    src: 'https://everai-duos.imgix.net/d44a5ac4-4350-4874-a3e3-82f28f3a9ecf.jpg?w=800',
     alt: 'Awesome watch',
   },
   {
     id: '02',
-    src: 'https://images.unsplash.com/photo-1451290337906-ac938fc89bce?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1777&q=80',
+    src: 'https://everai-duos.imgix.net/80c4adc6-9564-4884-a924-12bd83060e59.jpg?w=800',
     alt: 'Awesome watch',
   },
   {
     id: '03',
-    src: 'https://images.unsplash.com/photo-1568010434570-74e9ba7126bc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
+    src: 'https://everai-duos.imgix.net/765d8c83-450e-4b37-89bf-173d41eb5b28.jpg?w=800',
     alt: 'Awesome watch',
   },
   {
     id: '04',
-    src: 'https://images.unsplash.com/photo-1569411032431-07598b0012c2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+    src: 'https://everai-duos.imgix.net/99a5f383-9ca4-49e8-987c-3800cf3c65d0.jpg?w=800',
     alt: 'Awesome watch',
   },
   {
     id: '05',
-    src: 'https://images.unsplash.com/photo-1565440962783-f87efdea99fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=936&q=80',
+    src: 'https://everai-duos.imgix.net/89c29ddf-3b13-45b7-a3aa-5c34b0d270d4.jpg?w=800',
     alt: 'Awesome watch',
   },
   {
     id: '06',
-    src: 'https://images.unsplash.com/photo-1548169874-53e85f753f1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1420&q=80',
+    src: 'https://everai-duos.imgix.net/92442fc8-fff0-4fa4-a4ea-b622f9976ec9.jpg?w=800',
     alt: 'Awesome watch',
   },
 ]
@@ -34,12 +34,12 @@ export const images = [
 export const products = [
   {
     id: '1',
-    name: 'Bamboo Tan',
+    name: 'DUO 13',
     currency: 'USD',
-    price: 199,
+    price: 1.99,
     flag: 'new',
     imageUrl:
-      'https://images.unsplash.com/photo-1602024242516-fbc9d4fda4b6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
+      'https://everai-duos.imgix.net/92442fc8-fff0-4fa4-a4ea-b622f9976ec9.jpg?w=800',
     rating: 4,
     ratingCount: 1,
     description:
@@ -48,13 +48,13 @@ export const products = [
   },
   {
     id: '2',
-    name: 'Iconic Turquoise',
+    name: 'DUO 2394',
     currency: 'USD',
-    price: 199,
+    price: 0.99,
     salePrice: 179.99,
     flag: 'on-sale',
     imageUrl:
-      'https://images.unsplash.com/photo-1509941943102-10c232535736?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
+      'https://everai-duos.imgix.net/80c4adc6-9564-4884-a924-12bd83060e59.jpg?w=800',
     rating: 4,
     ratingCount: 12,
     description:
@@ -63,11 +63,11 @@ export const products = [
   },
   {
     id: '3',
-    name: 'Marble Leather',
+    name: 'DUO 1439',
     currency: 'USD',
-    price: 199,
+    price: 0.19,
     imageUrl:
-      'https://images.unsplash.com/photo-1564594985645-4427056e22e2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80',
+      'https://everai-duos.imgix.net/89c29ddf-3b13-45b7-a3aa-5c34b0d270d4.jpg?w=800',
     rating: 4,
     ratingCount: 12,
     description:
@@ -76,11 +76,11 @@ export const products = [
   },
   {
     id: '4',
-    name: 'Silve wolf',
+    name: 'DUO 23',
     currency: 'GBP',
-    price: 199,
+    price: 0.99,
     imageUrl:
-      'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=680&q=80',
+      'https://everai-duos.imgix.net/99a5f383-9ca4-49e8-987c-3800cf3c65d0.jpg?w=800',
     rating: 5,
     ratingCount: 1,
     description:
