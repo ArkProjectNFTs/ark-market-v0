@@ -1,0 +1,3 @@
+[submodule "open_zeppelin"]
+	path = apps/starknet/lib/open_zeppelin
+	url = https://github.com/OpenZeppelin/cairo-contracts
