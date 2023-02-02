@@ -1,4 +1,5 @@
-# NiftyRoll, an open-source protocol for the exchange of digital assets (NFTs) on top of Starknet it aim to provide a streamlined liquidity solution through a single entry-point in the Starknet ecosystem.
+# NiftyRoll
+An open-source protocol for the exchange of digital assets (NFTs) on top of Starknet it aim to provide a streamlined liquidity solution through a single entry-point in the Starknet ecosystem.
 
 ### Apps and Packages
 
@@ -10,3 +11,5 @@
 
 ### How it work
 
+
+![Orderbook-architecture](https://user-images.githubusercontent.com/243668/216363435-6f11f382-6e65-4b6c-ae46-69fd5f21d474.jpg)
