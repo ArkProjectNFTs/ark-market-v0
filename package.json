@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "dotenv -- turbo run build",
-    "dev": "dotenv -- turbo run dev --parallel",
+    "dev": "dotenv -e ./.env.local -- turbo run dev --parallel",
     "lint": "dotenv -- turbo run lint",
     "db:generate": "dotenv -- turbo run db:generate",
     "db:migrate:dev": "dotenv -e ./.env.local -- turbo --filter=database run db:migrate:dev",
