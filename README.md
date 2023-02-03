@@ -1,5 +1,7 @@
-# NiftyRoll
+# Genkidama
 An open-source protocol for the exchange of digital assets (NFTs) on top of Starknet it aim to provide a streamlined liquidity solution through a single entry-point in the Starknet ecosystem.
+
+![Untitled](https://user-images.githubusercontent.com/243668/216725985-7caa3f63-f645-4265-90fb-b128a18f2a19.gif)
 
 ### Apps and Packages
 
