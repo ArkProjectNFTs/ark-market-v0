@@ -18,12 +18,12 @@ Genkidama simplifies NFT trading by providing a unified platform for NFT liquidi
 
 ### What is the Genkidama protocol?
 
-The Genkidama protocol consists to:
+The Genkidama protocol consists of:
 
 - **Data Model** the Protocol uses a standardized data model for nft exchange, fees, royalties
 - **An indexer** that aggregates liquidity from genkidama data model and also other NFT marketplaces that doesn't integrate or respect the protocol
 - **An On-chain OrderBook** including royalties normalization and advanced bid features. _In order to achieve sufficient scalability and performance, we are considering using volution mode to store the orderbook and in the future a Layer 3._
-- **A set of APIs** to providing access to aggregated liquidity data like price, orders, metadatas enabling interaction with the orderbook.
+- **A set of APIs** to provide access to aggregated liquidity data like price, orders, metadatas enabling interaction with the orderbook.
 - **An SDK client** to assist developer teams to execute core functionality (listing, bidding, buying and selling) through an easy-to-use library.
 - **A fully customizable whitelabel marketplace demo** and a UI KIT to aid starknet builders in swiftly launching their own customized NFT marketplaces.
 
