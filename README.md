@@ -14,6 +14,24 @@ The current landscape for digital asset transactions is fragmented, with multipl
 
 Genkidama simplifies NFT trading by providing a unified platform for NFT liquidity aggregation. By standardizing the NFT market, aggregating and normalizing orders, and making liquidity available through APIs, the protocol streamlines the NFT trading process.
 
+### What is the Genkidama protocol?
+
+The Genkidama protocol consists to theses open-source components:
+
+- **An indexer** that aggregates liquidity from genkidama contracts and popular NFT marketplaces such as Aspect and Mintsquare.
+- **An On-chain OrderBook** including royalties normalization and advanced bid features. _In order to achieve sufficient scalability and performance, we are considering using an L3 orderbook and evolutive mode._
+- **A set of APIs** for accessing aggregated liquidity data and interacting with the orderbook.
+- **An SDK client** to assist developer teams in making liquidity accessible and fillable through an easy-to-use library.
+- **A fully customizable whitelabel marketplace** and a UI KIT to aid starknet builders in swiftly launching their own customized NFT marketplaces.
+
+Open-source standard for nft exchanges (bid, list, ask, royalties, etc)
+Indexer -> A node that takes care of reading on chain exchanges and writing to the Data Lake and eventually reconstructing the Aggregated Orderbook (for marketplace that doesn’t respect the protocol)
+On chain ordebook () -> Aggregated on chain orderbook -> When an NFT is listed for sale, buy, bid etc it can be indexed following our standard, with the indexer
+Data lake (L3, offchain) -> A low cost repository for storing orders "off-chain" . This ensures permissionless data availability of all liquidity, and global consensus over when it was provided.
+API’s -> A simple interface for interacting with the order book
+SDK -> SDK is the underlying package that we uses behind the scenes to execute core functionality (listing, bidding, buying and selling).
+UI KIT -> UI KIT is a react library that makes it easy to add marketplace functionality and UI into your project.
+
 ### How does it work?
 
 Users interact with the orderbook of external marketplaces (ie. listing on Mintsquare or Aspect), our indexer captures off-chain events and pushes them on-chain through our orderbook contract, making them accessible to any other application through contract composability.
@@ -48,4 +66,3 @@ Genkidama provides Starknet builders with a suite of tools to aid developer team
 | ----------- | ------ |
 | Aspect      | 🚧     |
 | Mintsquare  | 🚧     |
-
