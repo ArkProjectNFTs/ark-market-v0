@@ -27,9 +27,9 @@ The Genkidama protocol consists to:
 - **An SDK client** to assist developer teams to execute core functionality (listing, bidding, buying and selling) through an easy-to-use library.
 - **A fully customizable whitelabel marketplace demo** and a UI KIT to aid starknet builders in swiftly launching their own customized NFT marketplaces.
 
-## Technical Architecture
+## Technical Architecture draft
 
-![Orderbook-architecture](https://user-images.githubusercontent.com/243668/216363435-6f11f382-6e65-4b6c-ae46-69fd5f21d474.jpg)
+![schema-infra](https://user-images.githubusercontent.com/243668/216762228-acdf6d1b-0b17-4ccd-8531-41233e6703df.png)
 
 ## Project structure
 
