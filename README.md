@@ -2,6 +2,8 @@
 
 Genkidama is an open-source protocol for the exchange of digital assets (NFTs) on top of Starknet it aim to provide a streamlined liquidity solution through a single entry-point in the Starknet ecosystem.
 
+_Share Your Spirit Energy!_
+
 ![Untitled](https://user-images.githubusercontent.com/243668/216725985-7caa3f63-f645-4265-90fb-b128a18f2a19.gif)
 
 ## Overview
@@ -16,31 +18,14 @@ Genkidama simplifies NFT trading by providing a unified platform for NFT liquidi
 
 ### What is the Genkidama protocol?
 
-The Genkidama protocol consists to theses open-source components:
+The Genkidama protocol consists to:
 
-- **An indexer** that aggregates liquidity from genkidama contracts and popular NFT marketplaces such as Aspect and Mintsquare.
-- **An On-chain OrderBook** including royalties normalization and advanced bid features. _In order to achieve sufficient scalability and performance, we are considering using an L3 orderbook and evolutive mode._
-- **A set of APIs** for accessing aggregated liquidity data and interacting with the orderbook.
-- **An SDK client** to assist developer teams in making liquidity accessible and fillable through an easy-to-use library.
-- **A fully customizable whitelabel marketplace** and a UI KIT to aid starknet builders in swiftly launching their own customized NFT marketplaces.
-
-Open-source standard for nft exchanges (bid, list, ask, royalties, etc)
-Indexer -> A node that takes care of reading on chain exchanges and writing to the Data Lake and eventually reconstructing the Aggregated Orderbook (for marketplace that doesn’t respect the protocol)
-On chain ordebook () -> Aggregated on chain orderbook -> When an NFT is listed for sale, buy, bid etc it can be indexed following our standard, with the indexer
-Data lake (L3, offchain) -> A low cost repository for storing orders "off-chain" . This ensures permissionless data availability of all liquidity, and global consensus over when it was provided.
-API’s -> A simple interface for interacting with the order book
-SDK -> SDK is the underlying package that we uses behind the scenes to execute core functionality (listing, bidding, buying and selling).
-UI KIT -> UI KIT is a react library that makes it easy to add marketplace functionality and UI into your project.
-
-### How does it work?
-
-Users interact with the orderbook of external marketplaces (ie. listing on Mintsquare or Aspect), our indexer captures off-chain events and pushes them on-chain through our orderbook contract, making them accessible to any other application through contract composability.
-
-Genkidama provides Starknet builders with a suite of tools to aid developer teams in swiftly launching customized NFT marketplaces. These solutions include:
-
-- Aggregated Liquidity APIs
-- Comprehensive UI kit
-- Fully customizable whitelabel marketplace
+- **Data Model** the Protocol uses a standardized data model for nft exchange, fees, royalties
+- **An indexer** that aggregates liquidity from genkidama data model and also other NFT marketplaces that doesn't integrate or respect the protocol
+- **An On-chain OrderBook** including royalties normalization and advanced bid features. _In order to achieve sufficient scalability and performance, we are considering using volution mode to store the orderbook and in the future a Layer 3._
+- **A set of APIs** to providing access to aggregated liquidity data like price, orders, metadatas enabling interaction with the orderbook.
+- **An SDK client** to assist developer teams to execute core functionality (listing, bidding, buying and selling) through an easy-to-use library.
+- **A fully customizable whitelabel marketplace demo** and a UI KIT to aid starknet builders in swiftly launching their own customized NFT marketplaces.
 
 ## Technical Architecture
 
