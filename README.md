@@ -12,7 +12,7 @@ The current landscape for digital asset transactions is fragmented, with multipl
 
 Genkidama simplifies NFT trading by providing a unified platform for NFT liquidity aggregation. By standardizing the NFT market, aggregating and normalizing orders, and making liquidity available through APIs, the protocol streamlines the NFT trading process.
 
-### How it work
+### How it works
 
 ![Orderbook-architecture](https://user-images.githubusercontent.com/243668/216363435-6f11f382-6e65-4b6c-ae46-69fd5f21d474.jpg)
 
