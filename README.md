@@ -4,6 +4,8 @@ Genkidama is an open-source protocol for the exchange of digital assets (NFTs) o
 
 ![Untitled](https://user-images.githubusercontent.com/243668/216725985-7caa3f63-f645-4265-90fb-b128a18f2a19.gif)
 
+## Overview
+
 ### The problem
 
 The current landscape for digital asset transactions is fragmented, with multiple entry-points, varying levels of security, and limited liquidity solutions. This makes the process of exchanging NFTs a time-consuming and confusing process for businesses and individuals alike.
@@ -12,39 +14,38 @@ The current landscape for digital asset transactions is fragmented, with multipl
 
 Genkidama simplifies NFT trading by providing a unified platform for NFT liquidity aggregation. By standardizing the NFT market, aggregating and normalizing orders, and making liquidity available through APIs, the protocol streamlines the NFT trading process.
 
-### How it works
+### How does it work?
+
+Users interact with the orderbook of external marketplaces (ie. listing on Mintsquare or Aspect), our indexer captures off-chain events and pushes them on-chain through our orderbook contract, making them accessible to any other application through contract composability.
+
+Genkidama provides Starknet builders with a suite of tools to aid developer teams in swiftly launching customized NFT marketplaces. These solutions include:
+
+- Aggregated Liquidity APIs
+- Comprehensive UI kit
+- Fully customizable whitelabel marketplace
+
+## Technical Architecture
 
 ![Orderbook-architecture](https://user-images.githubusercontent.com/243668/216363435-6f11f382-6e65-4b6c-ae46-69fd5f21d474.jpg)
 
-### Order Book
+## Project structure
 
-Its purpose is to transfer off-chain liquidity on-chain, making it publicly accessible to everyone.
+### Apps
 
-### Indexer
+- [`indexer`](https://github.com/ScreenshotLabs/Genkidama/tree/main/apps/indexer): a service to index on-chain orders events and orders from the existing marketplaces.
+- [`web`](https://github.com/ScreenshotLabs/Genkidama/tree/main/apps/web): demo app to demonstrate nft listing
+- [`starknet`](https://github.com/ScreenshotLabs/Genkidama/tree/main/apps/web): core contracts to manage the on-chain orderbook
 
-Service that listen to blockchain and store all events from the existing marketplaces.
+### Packages
+
+- [`eslint-config-custom`](https://github.com/ScreenshotLabs/Genkidama/tree/main/packages/eslint-config-custom): `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- [`tsconfig`](https://github.com/ScreenshotLabs/Genkidama/tree/main/packages/tsconfig): `tsconfig.json`s used throughout the monorepo
+- [`database`](https://github.com/ScreenshotLabs/Genkidama/tree/main/packages/database): database migrations
+
+### Compatible Marketplaces
 
 | Marketplace | Status |
 | ----------- | ------ |
 | Aspect      | 🚧     |
 | Mintsquare  | 🚧     |
 
-### API
-
-Genkidama provides APIs for seamless interaction with the aggregated order book.
-
-### Optimistic updates
-
-We plan to manage orderbook updates optimistically through the use of a L3 solution.
-
-### Front-end & SDK
-
-Genkidama empowers builders with a comprehensive UI kit and a fully customizable whitelabel marketplace, enabling them to swiftly launch their very own NFT marketplaces.
-
-## Project structure
-
-- `indexer`: a [express.js](https://nextjs.org/) app to index on chain orders events
-- `web`: another [Next.js](https://nextjs.org/) demo app to demonstrate nft listing
-- `starknet`: starknet smart contracts to place orders
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
