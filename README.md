@@ -1,6 +1,6 @@
 # Genkidama
 
-Genkidama is an open-source protocol for the exchange of digital assets (NFTs) on top of Starknet it aim to provide a streamlined liquidity solution through a single entry-point in the Starknet ecosystem.
+Genkidama is an open-source protocol for the exchange of digital assets (NFTs) on top of Starknet, it aims to provide a streamlined liquidity solution through a single entry-point in the Starknet ecosystem.
 
 _Share Your Spirit Energy!_
 
@@ -21,7 +21,7 @@ Genkidama simplifies NFT trading by providing a unified platform for NFT liquidi
 The Genkidama protocol consists of:
 
 - **Data Model** the Protocol uses a standardized data model for nft exchange, fees, royalties
-- **An indexer** that aggregates liquidity from genkidama data model and also other NFT marketplaces that doesn't integrate or respect the protocol
+- **An indexer** that aggregates liquidity from genkidama data model and also other NFT marketplaces that don't integrate or respect the protocol
 - **An On-chain OrderBook** including royalties normalization and advanced bid features. _In order to achieve sufficient scalability and performance, we are considering using volution mode to store the orderbook and in the future a Layer 3._
 - **A set of APIs** to provide access to aggregated liquidity data like price, orders, metadatas enabling interaction with the orderbook.
 - **An SDK client** to assist developer teams to execute core functionality (listing, bidding, buying and selling) through an easy-to-use library.
