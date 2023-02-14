@@ -1,0 +1,21 @@
+{
+  "name": "database",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "dependencies": {
+    "@prisma/client": "latest"
+  },
+  "devDependencies": {
+    "prisma": "4.9.0"
+  },
+  
+  "scripts": {
+    "db:generate": "prisma generate",
+    "db:reset": "prisma migrate reset",
+    "db:push": "prisma db push --skip-generate",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev  --name 'niftyroll' --skip-generate"
+  }
+}

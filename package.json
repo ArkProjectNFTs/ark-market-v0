@@ -1,0 +1,32 @@
+{
+  "name": "niftyroll",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "dotenv -- turbo run build",
+    "dev": "dotenv -e ./.env.local -- turbo run dev --parallel",
+    "lint": "dotenv -- turbo run lint",
+    "db:generate": "dotenv -- turbo run db:generate",
+    "db:migrate:dev": "dotenv -e ./.env.local -- turbo --filter=database run db:migrate:dev",
+    "db:reset": "dotenv -- turbo run db:reset",
+    "db:migrate:deploy": "dotenv -e ./.env.local -- turbo --filter=database run db:migrate:deploy",
+    "db:push": "dotenv -e ./.env.local -- turbo run db:push",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "prettier": "latest",
+    "turbo": "latest"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "dotenv-cli": "^7.0.0"
+  },
+  "packageManager": "yarn@1.22.19"
+}
