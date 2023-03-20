@@ -1,4 +1,4 @@
-# Genkidama
+# ArkProject
 
 Genkidama is an open-source protocol for the exchange of digital assets (NFTs) on top of Starknet, it aims to provide a streamlined liquidity solution through a single entry-point in the Starknet ecosystem.
 
