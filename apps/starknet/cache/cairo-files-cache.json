@@ -1,0 +1,17 @@
+{
+ "/Users/christophedumont/Workspace/genkidama/apps/starknet/contracts/utils/handle_revoked_refs.cairo": {
+  "contentHash": "102375a880a6a379f2c659b61e7b2ff175a895a0e382013587639bddf799111c",
+  "outputPath": "/Users/christophedumont/Workspace/genkidama/apps/starknet/starknet-artifacts/contracts/utils/handle_revoked_refs.cairo/handle_revoked_refs.json",
+  "abiPath": "/Users/christophedumont/Workspace/genkidama/apps/starknet/starknet-artifacts/contracts/utils/handle_revoked_refs.cairo/handle_revoked_refs_abi.json"
+ },
+ "/Users/christophedumont/Workspace/genkidama/apps/starknet/contracts/orderbook.cairo": {
+  "contentHash": "b1facfee19fc7f617adc7a0a03b272cd073d4e9a7820e1c62d27545d5fb564ac",
+  "outputPath": "/Users/christophedumont/Workspace/genkidama/apps/starknet/starknet-artifacts/contracts/orderbook.cairo/orderbook.json",
+  "abiPath": "/Users/christophedumont/Workspace/genkidama/apps/starknet/starknet-artifacts/contracts/orderbook.cairo/orderbook_abi.json"
+ },
+ "/Users/christophedumont/Workspace/genkidama/apps/starknet/contracts/sample_token.cairo": {
+  "contentHash": "0a13537830d765f37148f983a14a46438099a0d4c1f786473af767f100bff137",
+  "outputPath": "/Users/christophedumont/Workspace/genkidama/apps/starknet/starknet-artifacts/contracts/sample_token.cairo/sample_token.json",
+  "abiPath": "/Users/christophedumont/Workspace/genkidama/apps/starknet/starknet-artifacts/contracts/sample_token.cairo/sample_token_abi.json"
+ }
+}

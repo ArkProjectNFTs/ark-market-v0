@@ -13,6 +13,7 @@
     "@chakra-ui/react": "^2.4.9",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@starknet-react/core": "^0.14.8",
     "database": "*",
     "framer-motion": "^8.5.5",
     "next": "^13.1.6",
