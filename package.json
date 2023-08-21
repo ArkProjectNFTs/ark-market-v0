@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "packages/config/*"
   ],
   "scripts": {
     "build": "dotenv -- turbo run build",
@@ -19,8 +20,16 @@
   },
   "devDependencies": {
     "eslint-config-custom": "*",
-    "prettier": "latest",
-    "turbo": "latest"
+    "@ianvs/prettier-plugin-sort-imports": "^4.0.2",
+    "@manypkg/cli": "^0.20.0",
+    "@types/prettier": "^2.7.3",
+    "eslint": "^8.44.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "turbo": "^1.10.6",
+    "typescript": "^5.1.6"
   },
   "engines": {
     "node": ">=14.0.0"
