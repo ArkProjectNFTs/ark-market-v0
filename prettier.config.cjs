@@ -20,6 +20,7 @@ const config = {
     "",
     "^arkmarket/(.*)$",
     "",
+    "^@/types/(.*)$",
     "^@/lib/(.*)$",
     "^@/components/(.*)$",
     "",

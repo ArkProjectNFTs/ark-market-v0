@@ -5,10 +5,10 @@ import { Inter } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 
-import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 
 import { MainNav } from "./components/main-nav";
+import { Providers } from "./components/providers";
 import { Search } from "./components/search";
 import { UserNav } from "./components/user-nav";
 
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <Providers>
           <div className="hidden flex-col md:flex">
             <div className="border-b">
               <div className="flex h-16 items-center px-4">
@@ -51,9 +51,9 @@ export default function RootLayout({
                 </div>
               </div>
             </div>
-            <div className="container mx-auto">{children}</div>
+            <div className="max-w-[1600px] w-full mx-auto">{children}</div>
           </div>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

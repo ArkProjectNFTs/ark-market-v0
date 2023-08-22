@@ -1,6 +1,6 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 export function MainNav({
   className,
@@ -12,29 +12,29 @@ export function MainNav({
       {...props}
     >
       <Link
-        href="/examples/dashboard"
-        className="text-sm font-medium transition-colors hover:text-primary"
-      >
-        Overview
-      </Link>
-      <Link
-        href="/examples/dashboard"
+        href="/trending"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Customers
+        Trending
       </Link>
       <Link
-        href="/examples/dashboard"
+        href="/watchlist"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Products
+        Watchlist
       </Link>
       <Link
-        href="/examples/dashboard"
+        href="/owned"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Settings
+        Owned
+      </Link>
+      <Link
+        href="/sweeps"
+        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+      >
+        Sweeps
       </Link>
     </nav>
-  )
+  );
 }
