@@ -64,7 +64,7 @@ const CollectionRow: React.FC<CollectionRowProps> = ({
         <div className="align flex w-24 flex-auto items-center justify-end">
           <span>1,1200</span>
         </div>
-        <div className="align flex w-24 flex-auto items-center justify-end">
+        <div className="align flex w-24 flex-auto items-center justify-end pr-4">
           <span>0</span>
         </div>
       </div>
