@@ -18,7 +18,7 @@ const CollectionItemsGrid: React.FC<CollectionItemsGridProps> = ({
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-5 lg:grid-cols-7 ">
       {items.map((item: any) => (
-        <CollectionItemsGridItem name={name} item={item} address={address} />
+        <CollectionItemsGridItem key={item.token_id} name={name} item={item} address={address} />
       ))}
     </div>
   );

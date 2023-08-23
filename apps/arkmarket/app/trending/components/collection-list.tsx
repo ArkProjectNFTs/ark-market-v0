@@ -1,9 +1,6 @@
-"use client";
-
 import React from "react";
 
 import { Collection } from "@/types";
-import { useQuery } from "react-query";
 
 import { Separator } from "@/components/ui/separator";
 

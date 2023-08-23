@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 
@@ -11,6 +13,8 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import Image from "@/components/ui/image";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface CollectionItemsGridItemProps {
   item: CollectionItem;
@@ -43,11 +47,12 @@ const CollectionItemsGridItem: React.FC<CollectionItemsGridItemProps> = ({
               <rect width="32" height="32" rx="4" />
             </svg>
           ) : (
-            <img
+            <Image
+              fallbackSrc="/placeholder.png"
               className="h-full w-full rounded-sm object-cover object-center"
               src={item?.normalized_metadata.image.replace(
                 "ipfs://",
-                "https://ipfs.io/ipfs/"
+                "http://ipfs.io/ipfs/"
               )}
               alt={item.token_id}
             />
