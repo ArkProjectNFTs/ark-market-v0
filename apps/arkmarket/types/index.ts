@@ -51,3 +51,16 @@ export interface Event {
     symbol: string;
   };
 }
+
+export interface CollectionItem {
+  token_address: string;
+  token_id: string;
+  owner?: string;
+  normalized_metadata?: {
+    name: string;
+    description: string;
+    image: string;
+    attributes: unknown[];
+    external_url: string;
+  };
+}

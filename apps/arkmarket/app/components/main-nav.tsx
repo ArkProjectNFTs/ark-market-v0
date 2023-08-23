@@ -29,12 +29,6 @@ export function MainNav({
       >
         Owned
       </Link>
-      <Link
-        href="/sweeps"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-      >
-        Sweeps
-      </Link>
     </nav>
   );
 }
