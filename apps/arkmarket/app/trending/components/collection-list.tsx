@@ -21,6 +21,7 @@ const getCollections = async () => {
 
 const CollectionsList = async () => {
   const data = await getCollections();
+  console.log(data)
   return (
     <div className="hidden h-full flex-1 flex-col space-y-4 md:flex">
       <div className="flex items-center justify-between space-y-2">
