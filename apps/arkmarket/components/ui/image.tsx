@@ -10,7 +10,6 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 const Image = forwardRef<HTMLImageElement, ImageProps>(
   ({ fallbackSrc, fallback, ...props }, ref) => {
     const status = useImage(props);
-    console.log("status", status);
 
     if (status !== "loaded") {
       if (fallback) return fallback;
