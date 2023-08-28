@@ -1,5 +1,5 @@
 use starknet::ContractAddress;
-use cairo_test::string::LongString;
+use ark_executor::string::LongString;
 
 //! ERC721 with long string implem for testing.
 #[starknet::interface]
@@ -25,7 +25,7 @@ mod erc721_longstring {
     use array::{ArrayTrait, SpanTrait};
 
     use super::IERC721LongString;
-    use cairo_test::string::{
+    use ark_executor::string::{
         LongString, Felt252IntoLongString, long_string_storage_read, long_string_storage_write
     };
 
@@ -35,7 +35,7 @@ mod erc721_longstring {
     }
 
     #[constructor]
-    fn constructor(ref self: ContractState, name: LongString, symbol: LongString, ) {
+    fn constructor(ref self: ContractState, name: LongString, symbol: LongString) {
         long_string_storage_write('ERC721', 'name', name);
         long_string_storage_write('ERC721', 'symbol', symbol);
     }
