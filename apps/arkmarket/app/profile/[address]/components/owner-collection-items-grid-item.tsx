@@ -36,27 +36,17 @@ const CollectionItemsGridItem: React.FC<CollectionItemsGridItemProps> = ({
           </CardTitle>
         </CardHeader>
         <CardContent className="relative px-1 pb-0">
-          {!item.normalized_metadata ? (
-            <svg
-              className="mr-2 dark:invert"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="#000"
-            >
-              <rect width="32" height="32" rx="4" />
-            </svg>
-          ) : (
+          
             <Image
               fallbackSrc="/placeholder.png"
               className="h-full w-full rounded-sm object-cover object-center"
-              src={item?.normalized_metadata.image.replace(
+              // todo: replace with real data when https://github.com/TheArkProjekt/ArkIndexer/issues/76 is done
+              src={item?.owner?.replace(
                 "ipfs://",
                 env.NEXT_PUBLIC_IPFS_PROVIDER
               )}
               alt={item.token_id}
             />
-          )}
         </CardContent>
         <CardFooter className="px-2 pb-2 pt-2">
           <span className="text-xs font-semibold">{`${name} #${removeLeadingZeros(

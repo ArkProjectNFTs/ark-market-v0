@@ -10,7 +10,7 @@ const CollectionListHeader = () => {
   const getIsSorted = null;
   return (
     <div className="flex h-8 w-full justify-between text-xs">
-      <div className="align flex w-64 flex-auto items-center pl-14">
+      <div className="align flex w-64 flex-auto items-center">
         Collection
       </div>
       <div className="align flex w-24 flex-auto items-center justify-end">
