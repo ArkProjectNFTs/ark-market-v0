@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 
+import { env } from "@/env.mjs";
 import { CollectionItem } from "@/types";
 
 import { removeLeadingZeros } from "@/lib/utils";
@@ -26,7 +27,7 @@ const CollectionRow: React.FC<CollectionRowProps> = ({
         <div className="align flex w-4 flex-auto items-center pl-4 ">
           <Checkbox />
         </div>
-        <div className="align flex w-64 flex-auto items-center space-x-3 font-medium">
+        <div className="align flex w-64 flex-auto items-center space-x-3 pl-2 font-medium">
           {!item.normalized_metadata ? (
             <svg
               className="mr-2 dark:invert"
@@ -42,7 +43,7 @@ const CollectionRow: React.FC<CollectionRowProps> = ({
               className="h-8 w-8 rounded-sm object-cover object-center"
               src={item?.normalized_metadata.image.replace(
                 "ipfs://",
-                "https://ipfs.io/ipfs/"
+                env.NEXT_PUBLIC_IPFS_PROVIDER
               )}
               alt={item.token_id}
             />
