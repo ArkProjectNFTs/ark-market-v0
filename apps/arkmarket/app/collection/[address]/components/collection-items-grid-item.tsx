@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 
+import { env } from "@/env.mjs";
 import { CollectionItem } from "@/types";
 
 import { removeLeadingZeros } from "@/lib/utils";
@@ -14,7 +15,6 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import Image from "@/components/ui/image";
-import { Skeleton } from "@/components/ui/skeleton";
 
 interface CollectionItemsGridItemProps {
   item: CollectionItem;
@@ -52,7 +52,7 @@ const CollectionItemsGridItem: React.FC<CollectionItemsGridItemProps> = ({
               className="h-full w-full rounded-sm object-cover object-center"
               src={item?.normalized_metadata.image.replace(
                 "ipfs://",
-                "http://ipfs.io/ipfs/"
+                env.NEXT_PUBLIC_IPFS_PROVIDER
               )}
               alt={item.token_id}
             />

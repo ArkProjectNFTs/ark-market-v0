@@ -13,7 +13,7 @@ const CollectionRow: React.FC<CollectionRowProps> = ({ collection }) => {
   return (
     <Link href={`/collection/${collection.address}`}>
       <div className="flex h-12 w-full justify-between text-sm hover:bg-accent">
-        <div className="align flex w-64 flex-auto items-center font-medium">
+        <div className="align flex w-64 flex-auto items-center pl-2 font-medium">
           <svg
             className="mr-2 dark:invert"
             width="32"

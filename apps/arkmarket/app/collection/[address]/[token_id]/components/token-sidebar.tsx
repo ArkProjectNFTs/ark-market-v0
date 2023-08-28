@@ -1,5 +1,7 @@
 import React from "react";
 
+import { env } from "@/env.mjs";
+
 interface TokenSidebarProps {
   metadata: {
     name: string;
@@ -15,10 +17,7 @@ const TokenSidebar: React.FC<TokenSidebarProps> = ({ metadata }) => {
     <div className="flex flex-col space-y-4">
       <img
         className="w-full rounded-md"
-        src={metadata.image.replace(
-          "ipfs://",
-          "http://ipfs.io/ipfs/"
-        )}
+        src={metadata.image.replace("ipfs://", env.NEXT_PUBLIC_IPFS_PROVIDER)}
       />
     </div>
   );

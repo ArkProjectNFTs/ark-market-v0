@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "dotenv -v SKIP_ENV_VALIDATION=1 next lint",
+    "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.0.3",
@@ -22,6 +23,7 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.6",
+    "@t3-oss/env-nextjs": "^0.6.1",
     "@tanstack/react-table": "^8.9.3",
     "@types/node": "20.5.1",
     "@types/react": "18.2.20",
@@ -30,6 +32,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
+    "dotenv-cli": "^7.3.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
     "moment": "^2.29.4",
@@ -42,7 +45,8 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.6",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@ark-project/eslint-config": "*",
@@ -52,9 +56,9 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@gob-dojo/eslint-config/base",
-      "@gob-dojo/eslint-config/nextjs",
-      "@gob-dojo/eslint-config/react"
+      "@ark-project/eslint-config/base",
+      "@ark-project/eslint-config/nextjs",
+      "@ark-project/eslint-config/react"
     ]
   }
 }
