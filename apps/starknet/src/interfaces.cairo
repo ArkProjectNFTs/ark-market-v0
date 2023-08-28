@@ -1,18 +1,20 @@
 use starknet::{ClassHash, ContractAddress};
 use ark_executor::string::LongString;
 
+#[derive(Drop, Serde)]
+struct OrderExecute {
+    order_hash: felt252,
+    nft_address: ContractAddress,
+    token_id: u256,
+    maker_address: ContractAddress,
+    taker_address: ContractAddress,
+    price: u256
+}
+
+
 #[starknet::interface]
 trait IExecutor<T> {
-    fn execute_buy_order(
-        ref self: T,
-        order_hash: felt252,
-        nft_address: ContractAddress,
-        token_id: u256,
-        maker_address: ContractAddress,
-        taker_address: ContractAddress,
-        price: felt252
-    );
-
+    fn execute_buy_order(ref self: T, order: OrderExecute);
     fn update_sequencer_address(ref self: T, sequencer_address: ContractAddress);
 }
 
