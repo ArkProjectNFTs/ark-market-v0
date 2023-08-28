@@ -24,11 +24,10 @@ const CollectionRow: React.FC<CollectionRowProps> = ({
   return (
     <Link href={`/collection/${address}/${item.token_id}`}>
       <div className="flex h-12 w-full text-sm hover:bg-accent">
-        <div className="align flex w-4 flex-auto items-center pl-4 ">
+        <div className="align flex w-12 items-center pl-4 ">
           <Checkbox />
         </div>
-        <div className="align flex w-64 flex-auto items-center space-x-3 font-medium">
-          {/* fix when https://github.com/TheArkProjekt/ArkIndexer/issues is done */}
+        <div className="align flex w-64 items-center space-x-3 font-medium">
           {!item.normalized_metadata ? (
             <svg
               className="mr-2 dark:invert"
@@ -52,22 +51,16 @@ const CollectionRow: React.FC<CollectionRowProps> = ({
           <span>{`${name} ${removeLeadingZeros(item.token_id)}`}</span>
         </div>
         <div className="align flex w-24 flex-auto items-center justify-end">
-          <span>0.34</span>
+          <span>3234</span>
         </div>
         <div className="align flex w-24 flex-auto items-center justify-end">
           <span>0.3</span>
         </div>
         <div className="align flex w-24 flex-auto items-center justify-end">
-          <span>-20%</span>
-        </div>
-        <div className="align flex w-24 flex-auto items-center justify-end">
-          <span>23</span>
-        </div>
-        <div className="align flex w-24 flex-auto items-center justify-end">
-          <span>1,1200</span>
+          <span>1</span>
         </div>
         <div className="align flex w-24 flex-auto items-center justify-end pr-4">
-          <span>0</span>
+          <span>10</span>
         </div>
       </div>
       <Separator />
