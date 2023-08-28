@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger
-} from "../Dialog/Dialog";
+} from "../ui/Dialog/Dialog";
 
 interface ConnectModalProps {
   onClose: () => void;

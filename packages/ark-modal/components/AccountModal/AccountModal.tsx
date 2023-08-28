@@ -9,7 +9,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle
-} from "../Dialog/Dialog";
+} from "../ui/Dialog/Dialog";
 
 interface AccountModalProps {
   onClose: () => void;

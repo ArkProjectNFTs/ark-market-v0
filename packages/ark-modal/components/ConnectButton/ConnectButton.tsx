@@ -1,6 +1,6 @@
 "use client";
 
-import CustomConnectButton from "./CustomConnectButton";
+import { CustomConnectButton } from "./CustomConnectButton";
 
 /** This component should be an exported version of ConnectButtonRenderer, with propos
  * such as showBalance, label etc
