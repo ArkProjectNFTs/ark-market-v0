@@ -1,5 +1,6 @@
 "use client";
 
+import { ArkKitProvider } from "@ark-project/ark-modal";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import { ThemeProvider } from "@/components/theme-provider";
@@ -14,7 +15,7 @@ const Providers: React.FC<ProvidersProps> = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        {children}
+        <ArkKitProvider>{children}</ArkKitProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
