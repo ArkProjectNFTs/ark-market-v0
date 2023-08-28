@@ -2,7 +2,9 @@
 mod executor {
     use traits::Into;
     use starknet::{ContractAddress, ClassHash};
-    use ark_executor::interfaces::{IExecutor, IERCDispatcher, IERCDispatcherTrait, IUpgradable};
+    use ark_executor::interfaces::{
+        IExecutor, IERCDispatcher, IERCDispatcherTrait, IUpgradable, OrderExecute
+    };
 
     #[storage]
     struct Storage {
@@ -48,32 +50,23 @@ mod executor {
             self.arkchain_sequencer_address.write(sequencer_address);
         }
 
-        fn execute_buy_order(
-            ref self: ContractState,
-            order_hash: felt252,
-            nft_address: ContractAddress,
-            token_id: u256,
-            maker_address: ContractAddress,
-            taker_address: ContractAddress,
-            price: felt252
-        ) {
+        fn execute_buy_order(ref self: ContractState, order: OrderExecute) {
             assert(
                 starknet::get_caller_address() == self.arkchain_sequencer_address.read(),
                 'Invalid msg sender'
             );
 
-            let nft_contract = IERCDispatcher { contract_address: nft_address };
-            nft_contract.transferFrom(maker_address, taker_address, token_id);
+            let nft_contract = IERCDispatcher { contract_address: order.nft_address };
+            nft_contract.transferFrom(order.maker_address, order.taker_address, order.token_id);
 
             let eth_contract = IERCDispatcher {
                 contract_address: self.eth_contract_address.read()
             };
 
-            let amount: u256 = price.into();
-            eth_contract.transferFrom(taker_address, maker_address, amount);
+            eth_contract.transferFrom(order.taker_address, order.maker_address, order.price);
 
             let block_timestamp = starknet::info::get_block_timestamp();
-            self.emit(OrderExecuted { order_hash, block_timestamp });
+            self.emit(OrderExecuted { order_hash: order.order_hash, block_timestamp });
         }
     }
 
