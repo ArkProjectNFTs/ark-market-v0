@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createContext,
   PropsWithChildren,
@@ -35,8 +37,6 @@ const ModalContext = createContext<ModalContextValue>({
 });
 
 export function ModalProvider({ children }: PropsWithChildren) {
-  const { address } = useAccount();
-
   const {
     closeModal: closeAccountModal,
     isModalOpen: accountModalOpen,
@@ -48,6 +48,18 @@ export function ModalProvider({ children }: PropsWithChildren) {
     isModalOpen: connectModalOpen,
     openModal: openConnectModal
   } = useModalState();
+
+  const { address } = useAccount({
+    // TODO @YohanTz: onConnect / onDisconnect callbacks below
+    // onConnect() {
+    //   closeConnectModal();
+    //   closeAccountModal();
+    // },
+    // onDisconnect() {
+    //   closeConnectModal();
+    //   closeAccountModal();
+    // }
+  });
 
   return (
     <ModalContext.Provider
@@ -91,7 +103,7 @@ export function useConnectModal() {
   const modalContext = useContext(ModalContext);
 
   if (modalContext === undefined) {
-    throw new Error("useAccountModal must be used within an ArkKitProvider");
+    throw new Error("useConnectModal must be used within an ArkKitProvider");
   }
 
   const { connectModalOpen, openConnectModal } = modalContext;

@@ -1,8 +1,16 @@
-import { useAccount, useBalance, useStarkName } from "@starknet-react/core";
+"use client";
 
+import { useAccount } from "@starknet-react/core";
+
+import { useDisplayBalance } from "../../hooks/useDisplayBalance";
+import { useDisplayName } from "../../hooks/useDisplayName";
 import { useIsMounted } from "../../hooks/useIsMounted";
+import {
+  useAccountModal,
+  useConnectModal
+} from "../ArkKitProvider/ModalContext";
 
-interface ConnectButtonRendererProps {
+interface CustomConnectButtonProps {
   children: (props: {
     /** The currently connected user starknet address */
     address?: string;
@@ -11,39 +19,34 @@ interface ConnectButtonRendererProps {
     /** Starknet id name or address of the currently connected user */
     displayName?: string;
     /** Opens the account modal */
-    openAccountModal: () => void;
+    openAccountModal?: () => void;
     /** Opens the wallet connection modal */
-    openConnectModal: () => void;
+    openConnectModal?: () => void;
     /** Whether the connect button is ready to be displayed or not */
     ready: boolean;
   }) => React.ReactNode;
 }
 
 // TODO @YohanTz: Make a ConnectButton component that is a ready to go version of this button
-export default function ConnectButtonRenderer({
-  children
-}: ConnectButtonRendererProps) {
+export function CustomConnectButton({ children }: CustomConnectButtonProps) {
   const { address } = useAccount();
-  const { data: starkName } = useStarkName({ address: address ?? "" });
-  const { data: balanceData } = useBalance({ address: address });
   const mounted = useIsMounted();
+  const { openConnectModal } = useConnectModal();
+  const { openAccountModal } = useAccountModal();
+  const { displayName } = useDisplayName();
+  const { displayBalance } = useDisplayBalance();
 
   // TODO @YohanTz: ready = mounted && isConnecting === false && isReconnecting === false when implemented in starknet-react
   const ready = mounted;
-  const displayName = starkName ?? address;
-  // TODO @YohanTz: round balanceData.formatted ?
-  const displayBalance = balanceData
-    ? `${balanceData.formatted} ${balanceData.symbol}`
-    : undefined;
 
   return children({
     address,
     displayBalance,
     displayName,
-    openAccountModal: () => {},
-    openConnectModal: () => {},
+    openAccountModal,
+    openConnectModal,
     ready
   });
 }
 
-ConnectButtonRenderer.displayName = "ConnectButton.Custom";
+CustomConnectButton.displayName = "";

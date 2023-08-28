@@ -1,9 +1,13 @@
-import { ConnectButton } from "@ark-project/ark-modal";
+"use client";
+
+import { CustomConnectButton } from "@ark-project/ark-modal";
+
+import { Button } from "@/components/ui/button";
 
 export function UserNav() {
   return (
     <div>
-      <ConnectButton.Custom>
+      <CustomConnectButton>
         {({
           address,
           displayBalance,
@@ -21,17 +25,18 @@ export function UserNav() {
               })}
             >
               {address !== undefined && (
-                <button onClick={openAccountModal}>
+                <Button onClick={openAccountModal}>
                   {displayBalance} {displayName}
-                </button>
+                </Button>
               )}
+
               {address === undefined && (
-                <button onClick={openConnectModal}>Connect wallet</button>
+                <Button onClick={openConnectModal}>Connect wallet</Button>
               )}
             </div>
           );
         }}
-      </ConnectButton.Custom>
+      </CustomConnectButton>
     </div>
   );
 }

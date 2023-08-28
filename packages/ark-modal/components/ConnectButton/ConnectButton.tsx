@@ -1,15 +1,16 @@
-import ConnectButtonRenderer from "./ConnectButtonRenderer";
+"use client";
+
+import CustomConnectButton from "./CustomConnectButton";
 
 /** This component should be an exported version of ConnectButtonRenderer, with propos
  * such as showBalance, label etc
  */
 export function ConnectButton() {
   return (
-    <ConnectButtonRenderer>
+    <CustomConnectButton>
       {({}) => {
         return <div></div>;
       }}
-    </ConnectButtonRenderer>
+    </CustomConnectButton>
   );
 }
-ConnectButton.Custom = ConnectButtonRenderer;
