@@ -19,8 +19,10 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
   const { address } = useAccount();
   const { disconnect } = useConnectors();
 
-  const { displayName } = useDisplayName();
+  const { truncatedAddress, starkName } = useDisplayName();
   const { displayBalance } = useDisplayBalance();
+
+  const displayName = starkName ?? truncatedAddress;
 
   // TODO @YohanTz: rely only on onDisconnect and onConnect in ModalContext.tsx
   useEffect(() => {

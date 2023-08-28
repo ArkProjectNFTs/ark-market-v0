@@ -16,8 +16,10 @@ interface CustomConnectButtonProps {
     address?: string;
     /** Formatted balance of the currently connected user */
     displayBalance?: string;
-    /** Starknet id name or address of the currently connected user */
-    displayName?: string;
+    /** truncated address of the currently connected user */
+    truncatedAddress?: string;
+    /** Starknet id name of the currently connected user */
+    starkName?: string;
     /** Opens the account modal */
     openAccountModal?: () => void;
     /** Opens the wallet connection modal */
@@ -33,7 +35,7 @@ export function CustomConnectButton({ children }: CustomConnectButtonProps) {
   const mounted = useIsMounted();
   const { openConnectModal } = useConnectModal();
   const { openAccountModal } = useAccountModal();
-  const { displayName } = useDisplayName();
+  const { truncatedAddress, starkName } = useDisplayName();
   const { displayBalance } = useDisplayBalance();
 
   // TODO @YohanTz: ready = mounted && isConnecting === false && isReconnecting === false when implemented in starknet-react
@@ -42,7 +44,8 @@ export function CustomConnectButton({ children }: CustomConnectButtonProps) {
   return children({
     address,
     displayBalance,
-    displayName,
+    truncatedAddress,
+    starkName,
     openAccountModal,
     openConnectModal,
     ready

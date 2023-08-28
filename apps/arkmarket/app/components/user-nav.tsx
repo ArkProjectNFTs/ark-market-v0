@@ -11,7 +11,8 @@ export function UserNav() {
         {({
           address,
           displayBalance,
-          displayName,
+          truncatedAddress,
+          starkName,
           openAccountModal,
           openConnectModal,
           ready
@@ -26,7 +27,7 @@ export function UserNav() {
             >
               {address !== undefined && (
                 <Button onClick={openAccountModal}>
-                  {displayBalance} {displayName}
+                  {displayBalance} {starkName ?? truncatedAddress}
                 </Button>
               )}
 
