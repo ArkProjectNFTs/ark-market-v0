@@ -243,10 +243,10 @@ mod orderbook {
             let (status, listing_order) = tup;
 
             if listing_order.is_none() {
-                panic_with_felt252('Order must exist');
+                panic_with_felt252('Order must exist 1');
             }
 
-            let listing_order = listing_order.unwrap();
+            let order_l: OrderListing = listing_order.expect('expected order listing');
 
             match status {
                 Option::Some(status) => {
@@ -254,16 +254,16 @@ mod orderbook {
                         panic_with_felt252('Order must be open');
                     }
                 },
-                Option::None => panic_with_felt252('Order must exist'),
+                Option::None => panic_with_felt252('Order must exist 2'),
             }
 
             let exec = OrderBuyExecute {
                 order_hash: order.order_listing_hash,
-                nft_address: listing_order.collection,
-                token_id: listing_order.token_id,
-                maker_address: listing_order.seller,
+                nft_address: order_l.collection,
+                token_id: order_l.token_id,
+                maker_address: order_l.seller,
                 taker_address: order.buyer,
-                price: listing_order.price,
+                price: order_l.price,
             };
 
             let mut buf = array![];
@@ -273,6 +273,10 @@ mod orderbook {
                 self.executor_address.read().into(),
                 buf.span(),
             ).unwrap_syscall();
+
+            if !order_status_write(order.order_listing_hash, OrderStatus::Executing) {
+                panic_with_felt252('Could write status');
+            }
 
             self.emit(OrderBuyExecuting {
                 hash: order.order_listing_hash,

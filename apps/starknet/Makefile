@@ -48,8 +48,9 @@ setup:
 	@echo "\n**EXECUTOR**\n"
 	starkli deploy --salt 0x9123 ${executor_cl} ${admin_addr} ${appchain_seq} ${appchain_orderbook} ${erc20_address} ${messaging_address} ${config}
 
-	starkli invoke ${executor_address} execute_buy_order 0xaabb ${erc721_address} u256:1 ${katana_2} ${katana_3} u256:0x1 ${config}
+	# Must be done by messaging. Here for manual testing only.
+	# starkli invoke ${executor_address} execute_buy_order 0xaabb ${erc721_address} u256:1 ${katana_2} ${katana_3} u256:0x1 ${config}
 
-	starkli call ${erc20_address} balance_of ${admin_addr} ${rpc}
-	starkli call ${erc20_address} balance_of ${katana_2} ${rpc}
-	starkli call ${erc20_address} balance_of ${katana_3} ${rpc}
+	# starkli call ${erc20_address} balance_of ${admin_addr} ${rpc}
+	# starkli call ${erc20_address} balance_of ${katana_2} ${rpc}
+	# starkli call ${erc20_address} balance_of ${katana_3} ${rpc}
