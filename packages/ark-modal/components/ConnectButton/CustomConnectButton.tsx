@@ -5,6 +5,7 @@ import { useAccount } from "@starknet-react/core";
 import { useDisplayBalance } from "../../hooks/useDisplayBalance";
 import { useDisplayName } from "../../hooks/useDisplayName";
 import { useIsMounted } from "../../hooks/useIsMounted";
+import { Avatar } from "../AccountModal/Avatar";
 import {
   useAccountModal,
   useConnectModal
@@ -12,6 +13,8 @@ import {
 
 interface CustomConnectButtonProps {
   children: (props: {
+    /** Avatar component of the currently connected user */
+    avatar: React.ReactNode;
     /** The currently connected user starknet address */
     address?: string;
     /** Formatted balance of the currently connected user */
@@ -42,6 +45,7 @@ export function CustomConnectButton({ children }: CustomConnectButtonProps) {
   const ready = mounted;
 
   return children({
+    avatar: <Avatar address={address} size={24} />,
     address,
     displayBalance,
     truncatedAddress,

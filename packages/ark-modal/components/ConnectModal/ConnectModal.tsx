@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 import { useAccount, useConnectors } from "@starknet-react/core";
 
+import { Button } from "../ui/Button/Button";
 import {
   Dialog,
   DialogContent,
@@ -31,22 +32,22 @@ export function ConnectModal({ onClose, open }: ConnectModalProps) {
     <Dialog open={open} modal onOpenChange={(open) => !open && onClose()}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="mt-8">Connect a wallet</DialogTitle>
+          <DialogTitle>Connect a wallet</DialogTitle>
           <DialogDescription>
             Please, connect a wallet to start using ArkMarket
           </DialogDescription>
-          <ul>
-            {connectors.map((connector) => {
-              return (
-                <li>
-                  <button onClick={() => connect(connector)}>
-                    {connector.id}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
         </DialogHeader>
+        <ul className="mt-4 flex w-full flex-col gap-2">
+          {connectors.map((connector) => {
+            return (
+              <li>
+                <Button onClick={() => connect(connector)} className="w-full">
+                  {connector.id}
+                </Button>
+              </li>
+            );
+          })}
+        </ul>
       </DialogContent>
     </Dialog>
   );
