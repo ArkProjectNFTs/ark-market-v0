@@ -1,0 +1,26 @@
+{
+  "name": "@ark-project/ark-modal",
+  "version": "0.1.0",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint \"**/*.ts*\""
+  },
+  "devDependencies": {
+    "@ark-project/eslint-config": "*",
+    "@ark-project/tailwind-config": "*",
+    "@ark-project/tsconfig": "*",
+    "@types/react": "18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "eslint": "^7.32.0",
+    "typescript": "5.1.6"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.4",
+    "@starknet-react/core": "^1.0.4",
+    "get-starknet-core": "^3.2.0",
+    "react": "18.2.0",
+    "starknet": "^5.14.1"
+  }
+}
