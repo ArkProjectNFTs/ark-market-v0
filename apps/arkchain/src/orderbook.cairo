@@ -53,6 +53,8 @@ mod orderbook {
         name: felt252,
         #[key]
         chain_id: felt252,
+        // data
+        timestamp: u64,
         public_key: felt252,
     }
 
@@ -64,8 +66,12 @@ mod orderbook {
         broker_name: felt252,
         #[key]
         chain_id: felt252,
-        // TODO: add block timestamp.
-        order: Span<felt252>,
+        // data
+        timestamp: u64,
+        seller: ContractAddress,
+        collection: ContractAddress,
+        token_id: u256,
+        price: u256,
     }
 
     #[derive(Drop, starknet::Event)]
@@ -76,24 +82,22 @@ mod orderbook {
         broker_name: felt252,
         #[key]
         chain_id: felt252,
-        // TODO: add block timestamp.
-        order: Span<felt252>,
+        // data
+        timestamp: u64,
+        buyer: ContractAddress,
     }
 
     #[derive(Drop, starknet::Event)]
     struct OrderBuyFinalized {
         #[key]
         hash: felt252,
-        #[key]
-        broker_name: felt252,
-        #[key]
-        chain_id: felt252,
-        // TODO: add block timestamp.
-        order: Span<felt252>,
+        // data
+        timestamp: u64,
     }
 
     #[derive(Drop, starknet::Event)]
     struct Upgraded {
+        #[key]
         class_hash: ClassHash,
     }
 
@@ -137,6 +141,11 @@ mod orderbook {
                     (broker.chain_id, order.collection, order.token_id),
                     0
                 );
+
+                self.emit(OrderBuyFinalized {
+                    hash: order_hash,
+                    timestamp: starknet::get_block_timestamp(),
+                });
             },
             OrderStatus::Finalized => panic_with_felt252('Order already finalized'),
             OrderStatus::Cancelled => panic_with_felt252('Order already cancelled'),
@@ -178,6 +187,7 @@ mod orderbook {
             self.emit(BrokerRegistered {
                 name,
                 chain_id,
+                timestamp: starknet::info::get_block_timestamp(),
                 public_key,
             });
         }
@@ -205,21 +215,16 @@ mod orderbook {
 
             self.tokens_listing.write((b.chain_id, order.collection, order.token_id), hash);
 
-            let mut buf = array![];
-            order.serialize(ref buf);
-
             self.emit(OrderListingAdded {
                 hash,
                 broker_name: b.name,
                 chain_id: b.chain_id,
-                order: buf.span(),
+                timestamp: starknet::info::get_block_timestamp(),
+                seller: order.seller,
+                collection: order.collection,
+                token_id: order.token_id,
+                price: order.price,
             });
-
-            // When an order is cancelled -> the token must be removed from
-            // listing.
-
-            // When an order is finalized -> the token must be removed from
-            // listing.
         }
 
         fn submit_order_buy(ref self: ContractState, order: OrderBuy) {
@@ -264,6 +269,14 @@ mod orderbook {
                 self.executor_address.read().into(),
                 buf.span(),
             ).unwrap_syscall();
+
+            self.emit(OrderBuyExecuting {
+                hash: order.order_listing_hash,
+                broker_name: b.name,
+                chain_id: b.chain_id,
+                timestamp: starknet::get_block_timestamp(),
+                buyer: order.buyer,
+            });
         }
     }
 
