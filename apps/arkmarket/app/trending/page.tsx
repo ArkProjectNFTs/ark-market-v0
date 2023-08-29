@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { Metadata } from "next";
 
 import CollectionsList from "./components/collection-list";
