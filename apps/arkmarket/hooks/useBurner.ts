@@ -5,19 +5,16 @@ import { useCallback, useEffect, useState } from "react";
 import { env } from "@/env.mjs";
 import {
   Account,
+  cairo,
   CallData,
   ec,
   hash,
   RpcProvider,
-  stark,
-  TransactionStatus
+  shortString,
+  stark
 } from "starknet";
 
 import Storage from "@/lib/utils/storage";
-
-// const ETH_CONTRACT_ADDRESS = "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7";
-
-// const PREFUND_AMOUNT = "0x8AC7230489E80000"; // 10ETH
 
 const provider = new RpcProvider({
   nodeUrl: env.NEXT_PUBLIC_RPC_ENDPOINT
@@ -41,7 +38,6 @@ type BurnerStorage = {
 export const useBurner = () => {
   const [account, setAccount] = useState<Account>();
   const [isDeploying, setIsDeploying] = useState(false);
-
   // init
   useEffect(() => {
     const storage: BurnerStorage = Storage.get("burners");
@@ -69,31 +65,57 @@ export const useBurner = () => {
     }
   }, []);
 
-  const list = useCallback(() => {
-    let storage = Storage.get("burners") || {};
-    return Object.keys(storage).map((address) => {
-      return {
-        address,
-        active: storage[address].active
-      };
+  const registerBroker = useCallback(async () => {
+    if (!account) {
+      return;
+    }
+    const { transaction_hash } = await account.execute({
+      contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
+      entrypoint: "register_broker",
+      calldata: CallData.compile({
+        name: shortString.encodeShortString(env.NEXT_PUBLIC_BROKER_NAME),
+        // replace with future broker public key
+        public_key: "0x0",
+        chain_id: shortString.encodeShortString(env.NEXT_PUBLIC_ARK_CHAIN_ID)
+      })
     });
-  }, []);
+    return await provider.waitForTransaction(transaction_hash);
+  }, [account]);
 
-  const select = useCallback((address: string) => {
-    let storage = Storage.get("burners") || {};
-    if (!storage[address]) {
-      throw new Error("burner not found");
-    }
-
-    for (let addr in storage) {
-      storage[addr].active = false;
-    }
-    storage[address].active = true;
-
-    Storage.set("burners", storage);
-    const burner = new Account(provider, address, storage[address].privateKey);
-    setAccount(burner);
-  }, []);
+  const listItem = useCallback(
+    async ({
+      tokenId,
+      tokenOwnerAddress,
+      contractAddress
+    }: {
+      tokenId: number;
+      tokenOwnerAddress: string;
+      contractAddress: string;
+    }) => {
+      if (!account) {
+        return;
+      }
+      const result = await account.execute({
+        contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
+        entrypoint: "add_order_listing",
+        calldata: CallData.compile({
+          seller: tokenOwnerAddress,
+          collection: contractAddress,
+          token_id: cairo.uint256(tokenId),
+          price: cairo.uint256(1000),
+          end_date: "0",
+          // Change broker name for current env broker
+          broker_name: shortString.encodeShortString(
+            env.NEXT_PUBLIC_BROKER_NAME
+          ),
+          broker_sig_r: "0",
+          broker_sig_s: "0"
+        })
+      });
+      return await provider.waitForTransaction(result.transaction_hash);
+    },
+    [account]
+  );
 
   const create = useCallback(async () => {
     setIsDeploying(true);
@@ -105,8 +127,6 @@ export const useBurner = () => {
       CallData.compile({ publicKey }),
       0
     );
-
-    // await prefundAccount(address, admin);
 
     // deploy burner
     const burner = new Account(provider, address, privateKey);
@@ -142,23 +162,10 @@ export const useBurner = () => {
   }, []);
 
   return {
-    list,
-    select,
     create,
     account,
+    listItem,
+    registerBroker,
     isDeploying
   };
 };
-
-// const prefundAccount = async (address: string, account: Account) => {
-//   const { transaction_hash } = await account.execute({
-//     contractAddress: ETH_CONTRACT_ADDRESS,
-//     entrypoint: "transfer",
-//     calldata: CallData.compile([address, PREFUND_AMOUNT])
-//   });
-
-//   return await account.waitForTransaction(transaction_hash, {
-//     retryInterval: 1000,
-//     successStates: [TransactionStatus.ACCEPTED_ON_L2]
-//   });
-// };

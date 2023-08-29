@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Collection } from "@/types";
 
+import Image from "@/components/ui/image";
 import { Separator } from "@/components/ui/separator";
 
 interface CollectionRowProps {
@@ -13,12 +14,13 @@ const CollectionRow: React.FC<CollectionRowProps> = ({ collection }) => {
   return (
     <Link href={`/collection/${collection.address}`}>
       <div className="flex h-12 w-full justify-between text-sm hover:bg-accent">
-        <div className="align flex w-64 flex-auto items-center gap-2 font-medium">
+        <div className="align flex w-64 flex-auto items-center gap-2 pl-2 font-medium">
           {collection.image ? (
-            <img
-              className="h-8 w-8 rounded-full"
+            <Image
+              fallbackSrc="/placeholder.png"
+              className="h-8 w-8 rounded-sm"
               src={collection.image}
-              alt=""
+              alt="collection.image"
             />
           ) : (
             <svg
