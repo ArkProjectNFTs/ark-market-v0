@@ -34,7 +34,10 @@ const Page: React.FC<PageProps> = async ({ params }) => {
         <div className="hidden h-full flex-1 flex-col space-y-4 md:flex">
           <Header token={token} />
           <TokenActions />
-          {/* <TokenOwnerActions /> */}
+          {/* <TokenOwnerActions 
+            tokenId={params.token_id}
+            tokenOwnerAddress={params.address}
+          /> */}
           <Activity />
         </div>
       </div>
