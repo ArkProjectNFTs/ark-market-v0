@@ -10,10 +10,12 @@ interface ArkInterface {
   isBurnerDeploying: boolean;
   createBurner: () => Promise<string>;
   listItem: ({
+    contractAddress,
     tokenId,
     tokenOwnerAddress
   }: {
     tokenId: number;
+    contractAddress: string;
     tokenOwnerAddress: string;
   }) => Promise<any>;
   registerBroker: () => void;
