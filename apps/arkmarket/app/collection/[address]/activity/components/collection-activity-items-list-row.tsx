@@ -15,8 +15,6 @@ interface CollectionActivityItemsListRowProps {
 const CollectionActivityItemsListRow: React.FC<
   CollectionActivityItemsListRowProps
 > = ({ address, item, name }) => {
-  console.log(item);
-
   return (
     <Link href={`/collection/${address}/${item.token_id}`}>
       <div className="flex h-12 w-full text-sm hover:bg-accent">
