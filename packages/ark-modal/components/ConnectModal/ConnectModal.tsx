@@ -40,7 +40,7 @@ export function ConnectModal({ onClose, open }: ConnectModalProps) {
         <ul className="mt-4 flex w-full flex-col gap-2">
           {connectors.map((connector) => {
             return (
-              <li>
+              <li key={connector.id}>
                 <Button onClick={() => connect(connector)} className="w-full">
                   {connector.id}
                 </Button>

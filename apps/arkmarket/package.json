@@ -10,7 +10,7 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@ark-project/ark-modal":"*",
+    "@ark-project/ark-modal": "*",
     "@radix-ui/react-avatar": "^1.0.3",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.4",
@@ -24,12 +24,14 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.6",
+    "@starknet-react/core": "^1.0.4",
     "@t3-oss/env-nextjs": "^0.6.1",
     "@tanstack/react-table": "^8.9.3",
     "@types/js-cookie": "^3.0.3",
     "@types/node": "20.5.1",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
+    "add": "^2.0.6",
     "autoprefixer": "10.4.15",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
@@ -37,6 +39,7 @@
     "dotenv-cli": "^7.3.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
+    "get-starknet-core": "^3.2.0",
     "js-cookie": "^3.0.5",
     "moment": "^2.29.4",
     "next": "13.4.19",
@@ -50,6 +53,7 @@
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.6",
     "typescript": "5.1.6",
+    "yarn": "^1.22.19",
     "zod": "^3.22.2"
   },
   "devDependencies": {

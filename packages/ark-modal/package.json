@@ -26,5 +26,10 @@
     "get-starknet-core": "^3.2.0",
     "react": "18.2.0",
     "starknet": "^5.14.1"
+  },
+  "peerDependencies": {
+    "@starknet-react/core": "^1.0.4",
+    "get-starknet-core": "^3.2.0",
+    "starknet": "^5.14.1"
   }
 }

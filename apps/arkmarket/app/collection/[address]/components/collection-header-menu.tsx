@@ -9,7 +9,7 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
+  navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu";
 
 interface CollectionHeaderMenuProps {
@@ -49,7 +49,11 @@ const CollectionHeaderMenu: React.FC<CollectionHeaderMenuProps> = ({
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
+            <Link
+              href={`/collection/${address}/activity`}
+              legacyBehavior
+              passHref
+            >
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Activity
               </NavigationMenuLink>
