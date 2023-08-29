@@ -6,11 +6,17 @@ mod executor {
         IExecutor, IERCDispatcher, IERCDispatcherTrait, IUpgradable, OrderExecute
     };
 
+    use ark_executor::appchain_messaging::{
+        IAppchainMessagingDispatcher, IAppchainMessagingDispatcherTrait,
+    };
+
     #[storage]
     struct Storage {
         admin_address: ContractAddress,
         arkchain_sequencer_address: ContractAddress,
+        arkchain_orderbook_address: ContractAddress,
         eth_contract_address: ContractAddress,
+        messaging_address: ContractAddress,
     }
 
     #[event]
@@ -30,12 +36,18 @@ mod executor {
     fn constructor(
         ref self: ContractState,
         admin_address: ContractAddress,
+        // The account of starknet sending TX from the arkchain sequencer.
         arkchain_sequencer_address: ContractAddress,
-        eth_contract_address: ContractAddress
+        // The orderbook contract on the arkchain, which will receive messages.
+        arkchain_orderbook_address: ContractAddress,
+        eth_contract_address: ContractAddress,
+        messaging_address: ContractAddress,
     ) {
         self.admin_address.write(admin_address);
         self.eth_contract_address.write(eth_contract_address);
         self.arkchain_sequencer_address.write(arkchain_sequencer_address);
+        self.arkchain_orderbook_address.write(arkchain_orderbook_address);
+        self.messaging_address.write(messaging_address);
     }
 
 
@@ -57,7 +69,7 @@ mod executor {
             );
 
             let nft_contract = IERCDispatcher { contract_address: order.nft_address };
-            nft_contract.transferFrom(order.maker_address, order.taker_address, order.token_id);
+            nft_contract.transfer_from(order.maker_address, order.taker_address, order.token_id);
 
             let eth_contract = IERCDispatcher {
                 contract_address: self.eth_contract_address.read()
@@ -67,6 +79,17 @@ mod executor {
 
             let block_timestamp = starknet::info::get_block_timestamp();
             self.emit(OrderExecuted { order_hash: order.order_hash, block_timestamp });
+
+            let messaging = IAppchainMessagingDispatcher {
+                contract_address: self.messaging_address.read()
+            };
+
+            messaging.send_message_to_appchain(
+                self.arkchain_orderbook_address.read(),
+                // finalize_order_buy selector
+                0x00dc783263b4080fde14fad025c03978a991c3b64149cea7bb5e707b082a302f,
+                array![order.order_hash].span(),
+            );
         }
     }
 

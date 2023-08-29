@@ -21,6 +21,7 @@ trait IExecutor<T> {
 #[starknet::interface]
 trait IERC<T> {
     fn transferFrom(ref self: T, from: ContractAddress, to: ContractAddress, token_id: u256);
+    fn transfer_from(ref self: T, from: ContractAddress, to: ContractAddress, token_id: u256);
 }
 
 #[starknet::interface]
