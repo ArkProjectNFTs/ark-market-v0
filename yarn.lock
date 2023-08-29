@@ -4865,10 +4865,9 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==
 
-starknet@^5.14.1:
-  version "5.14.1"
-  resolved "https://registry.yarnpkg.com/starknet/-/starknet-5.14.1.tgz#97fa5f99c4c24e42ffa315cfda525461d09d6087"
-  integrity sha512-EtJwQ6RmFsqSLGuMP+PRp4DwNsMYXy63HDnd1plLCdQKl3FMYajqNKf5RbDl03uGU0uE5ctGp+OW3firHuv6IA==
+"starknet@https://github.com/kwiss/starknet.js/#9f32bb26408132c521b7bdb113a7d3b5a199e292":
+  version "5.17.0"
+  resolved "https://github.com/kwiss/starknet.js/#9f32bb26408132c521b7bdb113a7d3b5a199e292"
   dependencies:
     "@noble/curves" "~1.0.0"
     isomorphic-fetch "^3.0.0"

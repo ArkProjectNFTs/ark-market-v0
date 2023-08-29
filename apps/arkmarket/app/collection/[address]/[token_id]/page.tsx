@@ -5,6 +5,7 @@ import { env } from "@/env.mjs";
 import Activity from "./components/activity";
 import Header from "./components/header";
 import TokenActions from "./components/token-actions";
+import TokenOwnerActions from "./components/token-owner-actions";
 import TokenSidebar from "./components/token-sidebar";
 
 interface PageProps {
@@ -33,6 +34,7 @@ const Page: React.FC<PageProps> = async ({ params }) => {
         <div className="hidden h-full flex-1 flex-col space-y-4 md:flex">
           <Header token={token} />
           <TokenActions />
+          {/* <TokenOwnerActions /> */}
           <Activity />
         </div>
       </div>

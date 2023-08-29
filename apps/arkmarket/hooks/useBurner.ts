@@ -5,10 +5,12 @@ import { useCallback, useEffect, useState } from "react";
 import { env } from "@/env.mjs";
 import {
   Account,
+  cairo,
   CallData,
   ec,
   hash,
   RpcProvider,
+  shortString,
   stark,
   TransactionStatus
 } from "starknet";
@@ -41,7 +43,6 @@ type BurnerStorage = {
 export const useBurner = () => {
   const [account, setAccount] = useState<Account>();
   const [isDeploying, setIsDeploying] = useState(false);
-
   // init
   useEffect(() => {
     const storage: BurnerStorage = Storage.get("burners");
@@ -68,6 +69,20 @@ export const useBurner = () => {
       }
     }
   }, []);
+
+  const registerBroker = useCallback(async () => {
+    if (!account) {
+      return;
+    }
+    await executeRegisterBroker(account);
+  }, [account]);
+
+  const listItem = useCallback(async () => {
+    if (!account) {
+      return;
+    }
+    await executeListItem(account);
+  }, [account]);
 
   const list = useCallback(() => {
     let storage = Storage.get("burners") || {};
@@ -146,8 +161,43 @@ export const useBurner = () => {
     select,
     create,
     account,
+    listItem,
+    registerBroker,
     isDeploying
   };
+};
+
+const executeListItem = async (account: Account) => {
+  const result = await account.execute({
+    contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
+    entrypoint: "add_order_listing",
+    calldata: CallData.compile({
+      seller:
+        "0x00E4769a4d2F7F69C70951A003eBA5c32707Cef3CdfB6B27cA63567f51cdd078",
+      collection:
+        "0x07feff50d156cc0a44098a74d9747c35ff12e0a3b2b3fd248f37c676112ac1fb",
+      token_id: cairo.uint256(499),
+      price: cairo.uint256(1000000),
+      end_date: "0",
+      broker_name: "1797578978957957227892",
+      broker_sig_r: "0",
+      broker_sig_s: "0"
+    })
+  });
+  await provider.waitForTransaction(result.transaction_hash);
+};
+
+const executeRegisterBroker = async (account: Account) => {
+  const { transaction_hash } = await account.execute({
+    contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
+    entrypoint: "register_broker",
+    calldata: CallData.compile({
+      name: "1797578978957957227892",
+      public_key: "0x0",
+      chain_id: "153465502409845803223769806078508688756"
+    })
+  });
+  return await provider.waitForTransaction(transaction_hash);
 };
 
 // const prefundAccount = async (address: string, account: Account) => {

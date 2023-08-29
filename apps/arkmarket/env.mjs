@@ -21,7 +21,8 @@ export const env = createEnv({
     NEXT_PUBLIC_ADMIN_ADDRESS: z.string(),
     NEXT_PUBLIC_ADMIN_PRIVATE_KEY: z.string(),
     NEXT_PUBLIC_ACCOUNT_CLASS_HASH: z.string(),
-    NEXT_PUBLIC_ARK_API_DOMAIN: z.string()
+    NEXT_PUBLIC_ARK_API_DOMAIN: z.string(),
+    NEXT_PUBLIC_ARK_CONTRACT_ADDRESS: z.string()
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -36,6 +37,8 @@ export const env = createEnv({
     NEXT_PUBLIC_ADMIN_ADDRESS: process.env.NEXT_PUBLIC_ADMIN_ADDRESS,
     NEXT_PUBLIC_ADMIN_PRIVATE_KEY: process.env.NEXT_PUBLIC_ADMIN_PRIVATE_KEY,
     NEXT_PUBLIC_ACCOUNT_CLASS_HASH: process.env.NEXT_PUBLIC_ACCOUNT_CLASS_HASH,
-    NEXT_PUBLIC_ARK_API_DOMAIN: process.env.NEXT_PUBLIC_ARK_API_DOMAIN
+    NEXT_PUBLIC_ARK_API_DOMAIN: process.env.NEXT_PUBLIC_ARK_API_DOMAIN,
+    NEXT_PUBLIC_ARK_CONTRACT_ADDRESS:
+      process.env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS
   }
 });
