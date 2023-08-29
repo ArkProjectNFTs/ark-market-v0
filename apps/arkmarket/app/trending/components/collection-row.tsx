@@ -13,16 +13,25 @@ const CollectionRow: React.FC<CollectionRowProps> = ({ collection }) => {
   return (
     <Link href={`/collection/${collection.address}`}>
       <div className="flex h-12 w-full justify-between text-sm hover:bg-accent">
-        <div className="align flex w-64 flex-auto items-center font-medium">
-          <svg
-            className="mr-2 dark:invert"
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="#000"
-          >
-            <rect width="32" height="32" rx="4" />
-          </svg>
+        <div className="align flex w-64 flex-auto items-center gap-2 font-medium">
+          {collection.image ? (
+            <img
+              className="h-8 w-8 rounded-full"
+              src={collection.image}
+              alt=""
+            />
+          ) : (
+            <svg
+              className="mr-2 dark:invert"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="#000"
+            >
+              <rect width="32" height="32" rx="4" />
+            </svg>
+          )}
+
           {collection.name}
         </div>
         <div className="align flex w-24 flex-auto items-center justify-end">
