@@ -1,12 +1,13 @@
 import { PropsWithChildren } from "react";
 
+import { env } from "@/env.mjs";
 import { Collection } from "@/types";
 
 import CollectionHeader from "./components/collection-header";
 
 const getCollection = async (address: string) => {
   const res = await fetch(
-    `https://api.arkproject.dev/v1/collections/${address}`,
+    `${env.NEXT_PUBLIC_ARK_API_DOMAIN}/v1/collections/${address}`,
     {
       headers: {
         "X-API-KEY": "yW0akON1f55mOFwBPXPme4AFfLktbRiQ2GNdT1Mc",

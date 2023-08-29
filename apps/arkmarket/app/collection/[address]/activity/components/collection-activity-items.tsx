@@ -1,3 +1,6 @@
+import { env } from "@/env.mjs";
+
+import CollectionActivityItemsHeader from "./collection-activity-items-header";
 import CollectionActivityItemsList from "./collection-activity-items-list";
 
 interface CollectionActivityItemsProps {
@@ -7,8 +10,7 @@ interface CollectionActivityItemsProps {
 
 const getCollectionActivity = async (address: string) => {
   const res = await fetch(
-    // `https://api.arkproject.dev/v1/collections/${address}/activity`,
-    `https://api-testnet.arkproject.dev/v1/collections/0x0199a48b1850f5905a209a1f5616fa205cfe5747eb4cfe034d95543d91168ea9/events`,
+    `${env.NEXT_PUBLIC_ARK_API_DOMAIN}/v1/collections/${address}/events`,
     {
       headers: {
         "X-API-KEY": "yW0akON1f55mOFwBPXPme4AFfLktbRiQ2GNdT1Mc",
@@ -25,9 +27,9 @@ const CollectionActivityItems: React.FC<CollectionActivityItemsProps> = async ({
   name
 }) => {
   const collectionActivityItems = await getCollectionActivity(address);
-  console.log(collectionActivityItems);
   return (
     <>
+      <CollectionActivityItemsHeader />
       <CollectionActivityItemsList
         address={address}
         name={name}

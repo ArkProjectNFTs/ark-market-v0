@@ -54,7 +54,10 @@ const CollectionHeaderMenu: React.FC<CollectionHeaderMenuProps> = ({
               legacyBehavior
               passHref
             >
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <NavigationMenuLink
+                className={navigationMenuTriggerStyle()}
+                active={currentRoute === `/collection/${address}/activity`}
+              >
                 Activity
               </NavigationMenuLink>
             </Link>
