@@ -201,7 +201,7 @@ mod orderbook {
             // TODO: verify signature.
 
             let hash = compute_order_hash(order);
-
+            
             let status = order_status_read(hash);
             if status.is_some() {
                 panic_with_felt252('Order already registered');
