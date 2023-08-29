@@ -32,6 +32,10 @@ fn order_read<T, impl TSerde: Serde<T>, impl TDrop: Drop<T>>(
     )
         .unwrap_syscall();
 
+    if status.is_zero() {
+        return (Option::None, Option::None);
+    }
+
     // Then, we must read the length to iterate over the offsets due to how
     // span is serialized.
     let length: felt252 = starknet::storage_read_syscall(
@@ -39,6 +43,10 @@ fn order_read<T, impl TSerde: Serde<T>, impl TDrop: Drop<T>>(
         starknet::storage_address_from_base_and_offset(base, 1)
     )
         .unwrap_syscall();
+
+    if length == 0 {
+        return (Option::None, Option::None);
+    }
 
     let mut offset = 2;
     let mut value = array![length];
