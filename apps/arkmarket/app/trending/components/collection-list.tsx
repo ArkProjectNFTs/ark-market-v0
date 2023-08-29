@@ -1,5 +1,6 @@
 import React from "react";
 
+import { env } from "@/env.mjs";
 import { Collection } from "@/types";
 
 import { Separator } from "@/components/ui/separator";
@@ -8,7 +9,7 @@ import CollectionListHeader from "./collection-list-header";
 import CollectionRow from "./collection-row";
 
 const getCollections = async () => {
-  const res = await fetch("https://api.arkproject.dev/v1/collections", {
+  const res = await fetch(`${env.NEXT_PUBLIC_ARK_API_DOMAIN}/v1/collections`, {
     headers: {
       "X-API-KEY": "yW0akON1f55mOFwBPXPme4AFfLktbRiQ2GNdT1Mc",
       "Content-Type": "application/json"

@@ -102,10 +102,14 @@ mod orderbook {
     }
 
     #[constructor]
-    fn constructor(ref self: ContractState, owner: ContractAddress, executor: ContractAddress) {
+    fn constructor(ref self: ContractState, owner: ContractAddress) {
         self.owner.write(owner);
-        self.executor_address.write(executor);
         self.chains.write('starknet_testnet', true);
+    }
+
+    #[external(v0)]
+    fn set_executor_sn_address(ref self: ContractState, executor: ContractAddress) {
+        self.executor_address.write(executor);
     }
 
     #[l1_handler]

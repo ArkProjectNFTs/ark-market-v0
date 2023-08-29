@@ -8,8 +8,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger
+  DialogTitle
 } from "../ui/Dialog/Dialog";
 
 interface ConnectModalProps {
