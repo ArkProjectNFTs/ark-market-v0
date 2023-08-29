@@ -36,8 +36,8 @@ export default function RootLayout({
                     src="/arkmarket.svg"
                     alt="Ark Market"
                     className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-                    width={120}
-                    height={16}
+                    width={140}
+                    height={21}
                     priority
                   />
                 </Link>
