@@ -12,9 +12,7 @@ export function useDisplayName() {
 
   // TODO @YohanTz: fix useStarkName hook
   const { data: starkName, refetch } = useStarkName({
-    address:
-      address ??
-      "0x064AE291C8482C273828957239017C3DdA0EC12ef27f76C9c9b043740CdD9137"
+    address: address ?? ""
   });
 
   useEffect(() => {

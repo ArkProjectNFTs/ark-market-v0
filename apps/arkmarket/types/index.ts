@@ -65,3 +65,12 @@ export interface CollectionItem {
     external_url: string;
   };
 }
+
+export interface CollectionActivityItem {
+  event_type: string;
+  from_address: string;
+  image?: string;
+  timestamp: string;
+  to_address: string;
+  token_id: string;
+}

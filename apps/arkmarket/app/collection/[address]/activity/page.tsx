@@ -3,8 +3,7 @@ import * as React from "react";
 import { env } from "@/env.mjs";
 import { Collection } from "@/types";
 
-import CollectionHeader from "./components/collection-header";
-import CollectionItems from "./components/collection-items";
+import CollectionActivityItems from "./components/collection-activity-items";
 
 interface PageProps {
   params: { address: string };
@@ -27,7 +26,9 @@ const getCollection = async (address: string) => {
 const Page: React.FC<PageProps> = async ({ params }) => {
   const collection = (await getCollection(params.address)) as Collection;
 
-  return <CollectionItems address={params.address} name={collection.name} />;
+  return (
+    <CollectionActivityItems address={params.address} name={collection.name} />
+  );
 };
 
 export default Page;

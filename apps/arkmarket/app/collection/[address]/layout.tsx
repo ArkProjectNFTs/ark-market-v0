@@ -1,14 +1,9 @@
-import * as React from "react";
+import { PropsWithChildren } from "react";
 
 import { env } from "@/env.mjs";
 import { Collection } from "@/types";
 
 import CollectionHeader from "./components/collection-header";
-import CollectionItems from "./components/collection-items";
-
-interface PageProps {
-  params: { address: string };
-}
 
 const getCollection = async (address: string) => {
   const res = await fetch(
@@ -24,10 +19,22 @@ const getCollection = async (address: string) => {
   return res.json();
 };
 
-const Page: React.FC<PageProps> = async ({ params }) => {
+interface ProfileLayoutProps {
+  params: { address: string };
+}
+
+const ProfileLayout: React.FC<PropsWithChildren<ProfileLayoutProps>> = async ({
+  params,
+  children
+}) => {
   const collection = (await getCollection(params.address)) as Collection;
 
-  return <CollectionItems address={params.address} name={collection.name} />;
+  return (
+    <div className="hidden h-full flex-1 flex-col space-y-4 p-8 md:flex">
+      <CollectionHeader collection={collection} />
+      {children}
+    </div>
+  );
 };
 
-export default Page;
+export default ProfileLayout;
