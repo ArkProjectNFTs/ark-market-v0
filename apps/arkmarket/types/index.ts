@@ -69,13 +69,7 @@ export interface CollectionItem {
 export interface CollectionActivityItem {
   event_type: string;
   from_address: string;
-  normalized_metadata?: {
-    name: string;
-    description: string;
-    image: string;
-    attributes: unknown[];
-    external_url: string;
-  };
+  image?: string;
   timestamp: string;
   to_address: string;
   token_id: string;

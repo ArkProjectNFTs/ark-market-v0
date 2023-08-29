@@ -23,7 +23,7 @@ const CollectionActivityItemsListRow: React.FC<
         </div>
 
         <div className="align flex w-64 flex-auto items-center space-x-3 overflow-hidden">
-          {!item.normalized_metadata ? (
+          {!item.image ? (
             <svg
               className="mr-2 dark:invert"
               width="32"
@@ -36,10 +36,7 @@ const CollectionActivityItemsListRow: React.FC<
           ) : (
             <img
               className="h-8 w-8 rounded-sm object-cover object-center"
-              src={item?.normalized_metadata.image.replace(
-                "ipfs://",
-                env.NEXT_PUBLIC_IPFS_PROVIDER
-              )}
+              src={item.image}
               alt={item.token_id}
             />
           )}
