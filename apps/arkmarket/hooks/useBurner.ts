@@ -85,10 +85,12 @@ export const useBurner = () => {
   const listItem = useCallback(
     async ({
       tokenId,
-      tokenOwnerAddress
+      tokenOwnerAddress,
+      contractAddress
     }: {
       tokenId: number;
       tokenOwnerAddress: string;
+      contractAddress: string;
     }) => {
       if (!account) {
         return;
@@ -97,10 +99,8 @@ export const useBurner = () => {
         contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
         entrypoint: "add_order_listing",
         calldata: CallData.compile({
-          // todo put connected wallet address
-          seller:
-            "0x00E4769a4d2F7F69C70951A003eBA5c32707Cef3CdfB6B27cA63567f51cdd078",
-          collection: tokenOwnerAddress,
+          seller: tokenOwnerAddress,
+          collection: contractAddress,
           token_id: cairo.uint256(tokenId),
           price: cairo.uint256(1000),
           end_date: "0",

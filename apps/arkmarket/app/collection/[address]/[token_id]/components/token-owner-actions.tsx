@@ -4,19 +4,20 @@ import React from "react";
 
 import { useBurner } from "@/hooks/useBurner";
 
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 interface TokenOwnerActionsProps {
   tokenId: string;
   tokenOwnerAddress: string;
+  contractAddress: string;
 }
 
 const TokenOwnerActions: React.FC<TokenOwnerActionsProps> = ({
   tokenId,
-  tokenOwnerAddress
+  tokenOwnerAddress,
+  contractAddress
 }) => {
-  const { registerBroker, listItem, account } = useBurner();
+  const { listItem } = useBurner();
   return (
     <Card>
       <div className="flex items-center justify-between p-6">
@@ -25,7 +26,8 @@ const TokenOwnerActions: React.FC<TokenOwnerActionsProps> = ({
           onClick={() =>
             listItem({
               tokenId: parseInt(tokenId),
-              tokenOwnerAddress
+              tokenOwnerAddress,
+              contractAddress
             })
           }
           className="inline-block animate-background rounded-lg bg-gray-900 from-pink-500 via-red-500 to-yellow-500 bg-[length:_400%_400%] p-0.5 [animation-duration:_6s] hover:bg-gradient-to-r dark:bg-gray-800"

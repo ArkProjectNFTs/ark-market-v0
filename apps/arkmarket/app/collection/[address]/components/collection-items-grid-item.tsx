@@ -53,6 +53,7 @@ const CollectionItemsGridItem: React.FC<CollectionItemsGridItemProps> = ({
                   muted
                   loop
                   autoPlay
+                  poster="/placeholder.png"
                   src={item.normalized_metadata.image.replace(
                     "ipfs://",
                     env.NEXT_PUBLIC_IPFS_PROVIDER

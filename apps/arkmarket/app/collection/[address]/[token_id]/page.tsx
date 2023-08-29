@@ -5,7 +5,6 @@ import { env } from "@/env.mjs";
 import Activity from "./components/activity";
 import Header from "./components/header";
 import TokenActions from "./components/token-actions";
-import TokenOwnerActions from "./components/token-owner-actions";
 import TokenSidebar from "./components/token-sidebar";
 
 interface PageProps {
@@ -28,16 +27,17 @@ const getToken = async (address: string, token_id: string) => {
 
 const Page: React.FC<PageProps> = async ({ params }) => {
   const token = await getToken(params.address, params.token_id);
+  console.log(token);
   return (
     <div className="flex flex-1 space-x-8 p-8">
       <div className="flex-1">
         <div className="hidden h-full flex-1 flex-col space-y-4 md:flex">
           <Header token={token} />
-          <TokenActions />
-          {/* <TokenOwnerActions 
+          <TokenActions
             tokenId={params.token_id}
-            tokenOwnerAddress={params.address}
-          /> */}
+            tokenOwnerAddress={token.owner}
+            contractAddress={params.address}
+          />
           <Activity />
         </div>
       </div>

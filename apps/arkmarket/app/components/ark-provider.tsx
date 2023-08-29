@@ -9,7 +9,13 @@ interface ArkInterface {
   account?: Account;
   isBurnerDeploying: boolean;
   createBurner: () => Promise<string>;
-  listItem: () => void;
+  listItem: ({
+    tokenId,
+    tokenOwnerAddress
+  }: {
+    tokenId: number;
+    tokenOwnerAddress: string;
+  }) => Promise<any>;
   registerBroker: () => void;
 }
 

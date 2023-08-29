@@ -8,6 +8,7 @@ import { CollectionItem } from "@/types";
 
 import { removeLeadingZeros } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
+import Image from "@/components/ui/image";
 import { Separator } from "@/components/ui/separator";
 
 interface CollectionRowProps {
@@ -40,7 +41,8 @@ const CollectionRow: React.FC<CollectionRowProps> = ({
               <rect width="32" height="32" rx="4" />
             </svg>
           ) : (
-            <img
+            <Image
+              fallbackSrc="/placeholder.png"
               className="h-8 w-8 rounded-sm object-cover object-center"
               src={item?.normalized_metadata.image.replace(
                 "ipfs://",
