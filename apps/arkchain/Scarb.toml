@@ -1,0 +1,11 @@
+[package]
+name = "arkchain"
+version = "0.1.0"
+
+[dependencies]
+starknet = "2.2.0"
+snforge_std = { path = "/home/glihm7a/starknet/starknet-foundry/snforge_std/" }
+
+[[target.starknet-contract]]
+sierra = true
+casm = true

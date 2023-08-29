@@ -7,6 +7,7 @@ export interface Collection {
   contract_deployer: string;
   type: string;
   latest_mint?: string;
+  image?: string;
 }
 
 export interface Collections {
