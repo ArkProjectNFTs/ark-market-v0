@@ -35,7 +35,7 @@ const CollectionItems: React.FC<CollectionItemsProps> = async ({
 
   return (
     <Collection
-      collectionItems={collectionItems}
+      collectionItems={collectionItems.result}
       address={address}
       name={name}
     />

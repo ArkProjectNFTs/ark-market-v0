@@ -8,11 +8,13 @@ import { ViewToggle } from "@/components/ui/view-toggle";
 interface CollectionItemsHeaderProps {
   view: "grid" | "list";
   setView: (view: "grid" | "list") => void;
+  itemsCount: number;
 }
 
 const CollectionItemsHeader: React.FC<CollectionItemsHeaderProps> = ({
   view,
-  setView
+  setView,
+  itemsCount = 0
 }) => {
   return (
     <div className="mb-4 flex w-full flex-col space-y-2">
@@ -25,7 +27,9 @@ const CollectionItemsHeader: React.FC<CollectionItemsHeaderProps> = ({
         {/* Sort Search Status Price Rarity Market Traits */}
       </div>
       <div className="flex w-full items-center justify-between">
-        <span className="text-sm">0 results</span>
+        <span className="text-sm">{`${itemsCount} result${
+          itemsCount > 1 ? "s" : ""
+        }`}</span>
         <ViewToggle view={view} setView={setView} />
       </div>
     </div>

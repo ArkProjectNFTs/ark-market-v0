@@ -17,11 +17,29 @@ interface TokenSidebarProps {
 const TokenSidebar: React.FC<TokenSidebarProps> = ({ metadata }) => {
   return (
     <div className="flex flex-col space-y-4">
-      <Image
-        className="w-full rounded-md"
-        fallbackSrc="/placeholder.png"
-        src={metadata?.image?.replace("ipfs://", env.NEXT_PUBLIC_IPFS_PROVIDER)}
-      />
+      <>
+        {metadata.image.includes("mp4") ? (
+          <video
+            className="w-full rounded-md"
+            muted
+            loop
+            autoPlay
+            src={metadata.image.replace(
+              "ipfs://",
+              env.NEXT_PUBLIC_IPFS_PROVIDER
+            )}
+          />
+        ) : (
+          <Image
+            className="w-full rounded-md"
+            fallbackSrc="/placeholder.png"
+            src={metadata.image.replace(
+              "ipfs://",
+              env.NEXT_PUBLIC_IPFS_PROVIDER
+            )}
+          />
+        )}
+      </>
     </div>
   );
 };
