@@ -1,5 +1,7 @@
 import React from "react";
 
+import { env } from "@/env.mjs";
+
 import Collection from "./collection";
 
 interface CollectionItemsProps {
@@ -8,13 +10,16 @@ interface CollectionItemsProps {
 }
 
 const fetchNfts = async (address: string) => {
-  const res = await fetch(`https://api.arkproject.dev/v1/nfts/${address}`, {
-    next: { revalidate: 30 },
-    headers: {
-      "X-API-KEY": "yW0akON1f55mOFwBPXPme4AFfLktbRiQ2GNdT1Mc",
-      "Content-Type": "application/json"
+  const res = await fetch(
+    `${env.NEXT_PUBLIC_ARK_API_DOMAIN}/v1/nfts/${address}`,
+    {
+      next: { revalidate: 30 },
+      headers: {
+        "X-API-KEY": "yW0akON1f55mOFwBPXPme4AFfLktbRiQ2GNdT1Mc",
+        "Content-Type": "application/json"
+      }
     }
-  });
+  );
 
   if (res.status === 200) {
     return res.json();
@@ -27,6 +32,7 @@ const CollectionItems: React.FC<CollectionItemsProps> = async ({
   name
 }) => {
   const collectionItems = await fetchNfts(address);
+
   return (
     <Collection
       collectionItems={collectionItems}

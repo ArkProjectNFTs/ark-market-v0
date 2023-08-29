@@ -20,24 +20,38 @@ interface CollectionHeaderProps {
   collection: Collection;
 }
 
-const CollectionHeader: React.FC<CollectionHeaderProps> = async ({ collection }) => {
+const CollectionHeader: React.FC<CollectionHeaderProps> = async ({
+  collection
+}) => {
   return (
     <div className="hidden h-full flex-1 flex-col space-y-4 md:flex">
       <div className="flex items-center justify-between space-y-2">
         <div className="flex w-full items-end space-x-2">
-          <svg
-            className="mr-2 dark:invert"
-            width="56"
-            height="56"
-            viewBox="0 0 32 32"
-            fill="#000"
-          >
-            <rect width="32" height="32" rx="4" />
-          </svg>
+          {collection.image ? (
+            <img
+              className="h-14 w-14 rounded-full"
+              src={collection.image}
+              alt=""
+            />
+          ) : (
+            <svg
+              className="mr-2 dark:invert"
+              width="56"
+              height="56"
+              viewBox="0 0 32 32"
+              fill="#000"
+            >
+              <rect width="32" height="32" rx="4" />
+            </svg>
+          )}
           <div className="flex flex-col space-y-2">
             <div className="flex items-center space-x-2">
-              <h2 className="text-2xl font-bold tracking-tight">{collection.name}</h2>
-              <ButtonCopy copyContent={collection.address}>Copy address</ButtonCopy>
+              <h2 className="text-2xl font-bold tracking-tight">
+                {collection.name}
+              </h2>
+              <ButtonCopy copyContent={collection.address}>
+                Copy address
+              </ButtonCopy>
             </div>
             <div className="flex space-x-2">
               <Badge variant="secondary">{collection.supply} ITEMS</Badge>
