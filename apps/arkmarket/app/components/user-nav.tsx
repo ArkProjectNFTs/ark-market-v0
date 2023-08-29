@@ -9,6 +9,7 @@ export function UserNav() {
     <div>
       <CustomConnectButton>
         {({
+          avatar,
           address,
           displayBalance,
           truncatedAddress,
@@ -26,8 +27,21 @@ export function UserNav() {
               })}
             >
               {address !== undefined && (
-                <Button onClick={openAccountModal}>
-                  {displayBalance} {starkName ?? truncatedAddress}
+                <Button
+                  onClick={openAccountModal}
+                  className="flex items-center rounded-lg p-0.5 font-semibold"
+                  variant="secondary"
+                >
+                  {displayBalance !== undefined && (
+                    <span className="whitespace-nowrap px-2">
+                      {displayBalance}
+                    </span>
+                  )}
+
+                  <div className="flex h-full items-center gap-2 rounded-md  bg-background px-1.5">
+                    {avatar}
+                    {starkName ?? truncatedAddress}
+                  </div>
                 </Button>
               )}
 

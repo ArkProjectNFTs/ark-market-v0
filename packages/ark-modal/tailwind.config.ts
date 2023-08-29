@@ -8,7 +8,6 @@ module.exports = {
   content: [
     "./app/**/*.{ts,tsx}",
     "./lib/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "../../packages/**/*.{js,ts,jsx,tsx}"
+    "./components/**/*.{ts,tsx}"
   ]
 };
