@@ -112,7 +112,35 @@ export const useBurner = () => {
           broker_sig_s: "0"
         })
       });
-      return await provider.waitForTransaction(result.transaction_hash);
+      return await provider.waitForTransaction(result.transaction_hash, {
+        retryInterval: 500
+      });
+    },
+    [account]
+  );
+
+  const buyItem = useCallback(
+    async ({ address }: { address: string }) => {
+      if (account === undefined) {
+        throw new Error("Burner not deployed");
+      }
+      const result = await account.execute({
+        contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
+        entrypoint: "submit_order_buy",
+        calldata: CallData.compile({
+          order_listing_hash:
+            "0x1d754530a860554fa548286877c63cf3da711a1bfb6f4ca5595fe258513b0cc",
+          buyer: address,
+          // Broker footprint.
+          broker_name: env.NEXT_PUBLIC_BROKER_NAME,
+          // Broker signature is computed on all fields above.
+          broker_sig_r: "0",
+          broker_sig_s: "0"
+        })
+      });
+      return await provider.waitForTransaction(result.transaction_hash, {
+        retryInterval: 500
+      });
     },
     [account]
   );
@@ -165,6 +193,7 @@ export const useBurner = () => {
     create,
     account,
     listItem,
+    buyItem,
     registerBroker,
     isDeploying
   };

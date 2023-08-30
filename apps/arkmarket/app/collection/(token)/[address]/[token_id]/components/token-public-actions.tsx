@@ -1,5 +1,10 @@
 import React from "react";
 
+import { useBurner } from "@/hooks/useBurner";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { useAccount } from "@starknet-react/core";
+import { validateAndParseAddress } from "starknet";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,8 +13,35 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
 
 const TokenPublicActions = () => {
+  const { address } = useAccount();
+  const { toast } = useToast();
+  const { buyItem } = useBurner();
+  const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
+
+  const onItemBuy = async () => {
+    try {
+      setIsSubmitting(true);
+      if (!address) throw new Error("Please connect your wallet first.");
+      await buyItem({
+        address: validateAndParseAddress(address)
+      });
+      toast({
+        title: "Item bought",
+        description: "You have successfully bought this item."
+      });
+      setIsSubmitting(false);
+    } catch (error: any) {
+      setIsSubmitting(false);
+      toast({
+        title: "Error",
+        description: error.message
+      });
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -19,7 +51,16 @@ const TokenPublicActions = () => {
       <CardContent>
         <div className="flex flex-col space-y-6">
           <div className="flex space-x-6">
-            <Button className="w-64 shrink">Buy Now</Button>
+            <Button className="w-64 shrink" onClick={() => onItemBuy()}>
+              {isSubmitting ? (
+                <div className="flex items-center justify-center">
+                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                  <span>Please wait</span>
+                </div>
+              ) : (
+                <>Buy now</>
+              )}
+            </Button>
             <Button className="w-64 shrink" variant="outline">
               Make an offer
             </Button>
