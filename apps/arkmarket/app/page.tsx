@@ -18,8 +18,7 @@ export default function Home() {
         />
       </div>
       <CreateAccount />
-
-      {/* <MintButton /> */}
+      <MintButton />
     </main>
   );
 }

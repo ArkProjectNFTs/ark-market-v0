@@ -31,6 +31,7 @@ const TokenSidebar: React.FC<TokenSidebarProps> = ({ metadata }) => {
           />
         ) : (
           <Image
+            alt={metadata.name}
             className="w-full rounded-md"
             fallbackSrc="/placeholder.png"
             src={metadata.image.replace(

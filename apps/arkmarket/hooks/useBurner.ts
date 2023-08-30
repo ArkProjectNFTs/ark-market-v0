@@ -92,8 +92,8 @@ export const useBurner = () => {
       tokenOwnerAddress: string;
       contractAddress: string;
     }) => {
-      if (!account) {
-        return;
+      if (account === undefined) {
+        throw new Error("Burner not deployed");
       }
       const result = await account.execute({
         contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,

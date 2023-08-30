@@ -27,8 +27,9 @@ const CollectionItemsGridItem: React.FC<CollectionItemsGridItemProps> = ({
   address,
   name
 }) => {
+  console.log(item);
   return (
-    <Link href={`/collection/${address}/${item.token_id}`}>
+    <Link href={`/collection/${item.token_address}/${item.token_id}`}>
       <Card className="rounded hover:border-foreground">
         <CardHeader className="px-2 pb-1 pt-2">
           <CardTitle className="text-xs text-muted-foreground">

@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ModeToggle } from "@/components/ui/mode-toggle";
+import { Toaster } from "@/components/ui/toaster";
 
 import { MainNav } from "./components/main-nav";
 import { Providers } from "./components/providers";
@@ -26,8 +27,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Providers>
+      <Providers>
+        <body className={inter.className}>
           <div className="fixed top-0 z-10 w-full border-b bg-background">
             <div className="flex h-16 items-center px-4">
               <div className="flex h-16 items-center space-x-4 px-4">
@@ -53,8 +54,9 @@ export default function RootLayout({
           <div className="z-1 relative mx-auto mt-16 w-full max-w-[1600px]">
             {children}
           </div>
-        </Providers>
-      </body>
+          <Toaster />
+        </body>
+      </Providers>
     </html>
   );
 }
