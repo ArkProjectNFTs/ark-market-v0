@@ -8,6 +8,7 @@ use serde::Serde;
 use option::OptionTrait;
 use traits::{Into, TryInto};
 use starknet::SyscallResultTrait;
+use debug::PrintTrait;
 
 use arkchain::order::OrderStatus;
 
@@ -32,12 +33,12 @@ fn order_read<T, impl TSerde: Serde<T>, impl TDrop: Drop<T>>(
     )
         .unwrap_syscall();
 
-    if status.is_zero() {
+    let status: Option<OrderStatus> = status.try_into();
+    if status.is_none() {
         return (Option::None, Option::None);
     }
 
-    // Then, we must read the length to iterate over the offsets due to how
-    // span is serialized.
+    // Then, we must read the length to deserialize the data.
     let length: felt252 = starknet::storage_read_syscall(
         ADDRESS_DOMAIN,
         starknet::storage_address_from_base_and_offset(base, 1)
@@ -49,30 +50,27 @@ fn order_read<T, impl TSerde: Serde<T>, impl TDrop: Drop<T>>(
     }
 
     let mut offset = 2;
-    let mut value = array![length];
+    let mut value = array![];
 
     loop {
-        // -1 as the first offset was the length, already processed.
-        if length == offset.into() - 1 {
+        if offset.into() == length + 2 {
             break ();
         }
+        let v = starknet::storage_read_syscall(
+            ADDRESS_DOMAIN,
+            starknet::storage_address_from_base_and_offset(
+                base,
+                offset)
+        )
+            .unwrap_syscall();
 
-        value
-            .append(
-                starknet::storage_read_syscall(
-                    ADDRESS_DOMAIN,
-                    starknet::storage_address_from_base_and_offset(
-                        base,
-                        offset)
-                )
-                    .unwrap_syscall()
-            );
+        value.append(v);
 
         offset += 1;
     };
 
     let mut vspan = value.span();
-    (status.try_into(), Serde::<T>::deserialize(ref vspan))
+    (status, Serde::<T>::deserialize(ref vspan))
 }
 
 /// Writes an order into the database (storage), with the status "Open".
@@ -93,12 +91,17 @@ fn order_write<T, impl TSerde: Serde<T>, impl TDrop: Drop<T>>(
         OrderStatus::Open.into()
     );
 
-    let mut offset = 1;
-
-    // At offset 1, we always have the length, as it's how
-    // a span is serialized, followed by the content.
+    // At offset 1, we always have the length.
     let mut buf = array![];
     order.serialize(ref buf);
+
+    starknet::storage_write_syscall(
+        ADDRESS_DOMAIN,
+        starknet::storage_address_from_base_and_offset(base, 1),
+        buf.len().into()
+    );
+
+    let mut offset = 2;
 
     loop {
         match buf.pop_front() {

@@ -15,7 +15,7 @@ mod tests {
 
     #[test]
     fn test_listing() {
-        let calldata = array![0x123, 0xadd];
+        let calldata = array![0x123];
         let contract = declare('orderbook');
         let contract_address = contract.deploy(@calldata).unwrap();
 
@@ -41,7 +41,7 @@ mod tests {
 
     #[test]
     fn test_buying() {
-        let calldata = array![0x123, 0xadd];
+        let calldata = array![0x123];
         let contract = declare('orderbook');
         let contract_address = contract.deploy(@calldata).unwrap();
 
@@ -75,5 +75,35 @@ mod tests {
         };
 
         d.submit_order_buy(buy);
+
+
+
+        let o2 = OrderListing {
+            seller: 1.try_into().unwrap(),
+            collection: 1.try_into().unwrap(),
+            token_id: 2_u256,
+            price: 2_u256,
+            end_date: 0,
+            broker_name: 'b1',
+            broker_sig_r: 0,
+            broker_sig_s: 0,
+        };
+
+        let hash = compute_order_hash(o2);
+        hash.print();
+
+        d.add_order_listing(o2);
+
+
+        let buy2 = OrderBuy {
+          order_listing_hash: 0x2c3f3d59dcddddcfdf48276e3269e746bb22f6bc9c99c9e0e402ce3bbf7f64c,
+            buyer: 0x33c627a3e5213790e246a917770ce23d7e562baa5b4d2917c23b1be6d91961c.try_into().unwrap(),
+            broker_name: 'b1',
+            broker_sig_r: 0,
+            broker_sig_s: 0,
+        };
+
+        d.submit_order_buy(buy2);
+
     }
 }
