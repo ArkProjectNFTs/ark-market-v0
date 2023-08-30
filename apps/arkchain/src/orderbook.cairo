@@ -269,9 +269,29 @@ mod orderbook {
             let mut buf = array![];
             exec.serialize(ref buf);
 
-            starknet::send_message_to_l1_syscall(
+            // Need here to start with 0 the address. This will make
+            // katana to fire directly a tx decoding the payload.
+            let mut payload = array![
                 self.executor_address.read().into(),
-                buf.span(),
+                // Selector for execute_buy_order.
+                0x024c7997a5fbca75042a8d71d2eb9dd8d689a466ceb2d0cb0d4d36821b6e7470,
+            ];
+
+            // Need to then add the payload to the address and selector.
+            loop {
+                match buf.pop_front() {
+                    Option::Some(v) => {
+                        payload.append(v);
+                    },
+                    Option::None(_) => {
+                        break ();
+                    },
+                };
+            };
+
+            starknet::send_message_to_l1_syscall(
+                0,
+                payload.span(),
             ).unwrap_syscall();
 
             if !order_status_write(order.order_listing_hash, OrderStatus::Executing) {

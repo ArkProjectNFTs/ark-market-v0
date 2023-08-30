@@ -45,11 +45,7 @@ fn order_read<T, impl TSerde: Serde<T>, impl TDrop: Drop<T>>(
     )
         .unwrap_syscall();
 
-    'LEN read'.print();
-    length.print();
-
     if length == 0 {
-        'LEN is 0'.print();
         return (Option::None, Option::None);
     }
 
@@ -60,7 +56,6 @@ fn order_read<T, impl TSerde: Serde<T>, impl TDrop: Drop<T>>(
         if offset.into() == length + 2 {
             break ();
         }
-        offset.print();
         let v = starknet::storage_read_syscall(
             ADDRESS_DOMAIN,
             starknet::storage_address_from_base_and_offset(
@@ -68,7 +63,6 @@ fn order_read<T, impl TSerde: Serde<T>, impl TDrop: Drop<T>>(
                 offset)
         )
             .unwrap_syscall();
-        v.print();
 
         value.append(v);
 
@@ -110,10 +104,8 @@ fn order_write<T, impl TSerde: Serde<T>, impl TDrop: Drop<T>>(
     let mut offset = 2;
 
     loop {
-        offset.print();
         match buf.pop_front() {
             Option::Some(v) => {
-                v.print();
                 starknet::storage_write_syscall(
                     ADDRESS_DOMAIN,
                     starknet::storage_address_from_base_and_offset(base, offset),

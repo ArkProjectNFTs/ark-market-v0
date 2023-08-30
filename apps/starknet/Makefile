@@ -5,12 +5,12 @@ rpc := --rpc http://0.0.0.0:5050
 admin_addr := 0x3ee9e18edc71a6df30ac3aca2e0b02a198fbce19b7480a63a0d71cbd76652e0
 # TODO: replace with the katana of the arkchain.
 appchain_seq := 0x3ee9e18edc71a6df30ac3aca2e0b02a198fbce19b7480a63a0d71cbd76652e0
-appchain_orderbook := 0x0673a41aea759cff940534d0b52784d9ecb68d2a8e2d5c67f92faff9bc9ba22a
+appchain_orderbook := 0x05a37d8286d181f735589df21793025e58d06170e1346c36a51c9aafd538e1e1
 # Always the same due to the salt in the deploy of ERC20
 erc20_address := 0x014f169b34ed8cc0b47da58b97af46ebbdb9667fb0c71974b4ca3c19c9e89d9c
 erc721_address := 0x044b07a8c955296dd52a9d7d31a400b16ad4f6f574aa57db79cac0e87eac48cd
 messaging_address := 0x074aab826c6e94de492b89ce62fc6da1cf8e7c72f07a5c01c09a780f1b002ebb
-executor_address := 0x0735ee89ead07b4fcc46ed2d474b7e9748d9405b56f0c5566e287cd2fd395bff
+executor_address := 0x06fa8b349adca81e1e50960b3e6a93beb178e2ea6305e84320b4711436c13c63
 
 # Katana accounts
 katana_2 := 0x33c627a3e5213790e246a917770ce23d7e562baa5b4d2917c23b1be6d91961c
