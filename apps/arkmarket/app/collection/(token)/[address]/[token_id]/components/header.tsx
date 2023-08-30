@@ -31,7 +31,7 @@ const Header: React.FC<TokenSidebarProps> = ({ token }) => {
       <div className="flex items-center justify-between py-2 text-sm">
         <div className="flex w-32 flex-col">
           <span className="text-xs text-muted-foreground">Created by</span>
-          <span className="font-semibold">Team BAYC</span>
+          <span className="font-semibold">Team Everai</span>
         </div>
         <div className="flex w-32 flex-col">
           <span className="text-xs text-muted-foreground">Owner</span>

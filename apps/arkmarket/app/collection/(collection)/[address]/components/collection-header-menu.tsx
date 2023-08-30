@@ -35,15 +35,29 @@ const CollectionHeaderMenu: React.FC<CollectionHeaderMenuProps> = ({
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <Link
+              href={`/collection/${address}/market`}
+              legacyBehavior
+              passHref
+            >
+              <NavigationMenuLink
+                className={navigationMenuTriggerStyle()}
+                active={currentRoute === `/collection/${address}/market`}
+              >
                 Market
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <Link
+              href={`/collection/${address}/analytics`}
+              legacyBehavior
+              passHref
+            >
+              <NavigationMenuLink
+                className={navigationMenuTriggerStyle()}
+                active={currentRoute === `/collection/${address}/analytics`}
+              >
                 Analytics
               </NavigationMenuLink>
             </Link>
@@ -63,8 +77,11 @@ const CollectionHeaderMenu: React.FC<CollectionHeaderMenuProps> = ({
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <Link href={`/collection/${address}/bids`} legacyBehavior passHref>
+              <NavigationMenuLink
+                className={navigationMenuTriggerStyle()}
+                active={currentRoute === `/collection/${address}/bids`}
+              >
                 Bids
               </NavigationMenuLink>
             </Link>
