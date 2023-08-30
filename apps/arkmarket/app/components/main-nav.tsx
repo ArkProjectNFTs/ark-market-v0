@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { useAccount } from "@starknet-react/core";
+import { validateAndParseAddress } from "starknet";
 
 import { cn } from "@/lib/utils";
 
@@ -29,7 +30,7 @@ export function MainNav({
         Watchlist
       </Link>
       <Link
-        href={`/profile/${address ?? ""}`}
+        href={`/profile/${address ? validateAndParseAddress(address) : ""}`}
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
         Owned
