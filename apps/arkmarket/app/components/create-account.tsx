@@ -7,7 +7,7 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
 
-import MintButton from "./mint-button";
+
 
 export const formatAddress = (address: string) => {
   return address.slice(0, 6) + "..." + address.slice(-4);
@@ -44,8 +44,6 @@ const CreateAccount = () => {
             <>{account ? formatAddress(account.address) : "Create Burner"}</>
           )}
         </Button>
-
-        <MintButton />
       </div>
     </div>
   );

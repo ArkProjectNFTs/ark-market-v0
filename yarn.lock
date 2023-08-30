@@ -4882,6 +4882,17 @@ starknet@^5.14.1:
     pako "^2.0.4"
     url-join "^4.0.1"
 
+"starknet@https://github.com/kwiss/starknet.js/#9f32bb26408132c521b7bdb113a7d3b5a199e292":
+  version "5.17.0"
+  resolved "https://github.com/kwiss/starknet.js/#9f32bb26408132c521b7bdb113a7d3b5a199e292"
+  dependencies:
+    "@noble/curves" "~1.0.0"
+    isomorphic-fetch "^3.0.0"
+    lossless-json "^2.0.8"
+    micro-starknet "~0.2.1"
+    pako "^2.0.4"
+    url-join "^4.0.1"
+
 streamsearch@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/streamsearch/-/streamsearch-1.1.0.tgz#404dd1e2247ca94af554e841a8ef0eaa238da764"

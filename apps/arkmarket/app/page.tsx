@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import Image from "next/image";
 
 import CreateAccount from "./components/create-account";
+import MintButton from "./components/mint-button";
 
 export default function Home() {
   return (
@@ -16,6 +18,8 @@ export default function Home() {
         />
       </div>
       <CreateAccount />
+
+      {/* <MintButton /> */}
     </main>
   );
 }
