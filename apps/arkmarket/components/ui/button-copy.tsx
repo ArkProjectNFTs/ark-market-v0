@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 
@@ -12,10 +12,7 @@ interface ButtonCopyProps {
   children: React.ReactNode;
 }
 
-const ButtonCopy: React.FC<ButtonCopyProps> = ({
-  copyContent,
-  children
-}) => {
+const ButtonCopy: React.FC<ButtonCopyProps> = ({ copyContent, children }) => {
   const [value, copy] = useCopyToClipboard();
   return (
     <Button onClick={() => copy(copyContent)} variant="ghost" size="iconSmall">

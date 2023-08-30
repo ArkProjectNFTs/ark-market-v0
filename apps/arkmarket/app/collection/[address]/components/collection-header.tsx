@@ -12,6 +12,7 @@ import moment from "moment";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import ButtonCopy from "@/components/ui/button-copy";
+import ButtonFavorite from "@/components/ui/button-favorite";
 import { Separator } from "@/components/ui/separator";
 
 import CollectionHeaderMenu from "./collection-header-menu";
@@ -52,6 +53,9 @@ const CollectionHeader: React.FC<CollectionHeaderProps> = async ({
               <ButtonCopy copyContent={collection.address}>
                 Copy address
               </ButtonCopy>
+              <ButtonFavorite contractAddress={collection.address}>
+                Add to Watchlist
+              </ButtonFavorite>
             </div>
             <div className="flex space-x-2">
               <Badge variant="secondary">{collection.supply} ITEMS</Badge>
