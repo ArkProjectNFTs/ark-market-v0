@@ -9,6 +9,16 @@ interface ArkInterface {
   account?: Account;
   isBurnerDeploying: boolean;
   createBurner: () => Promise<string>;
+  listItem: ({
+    contractAddress,
+    tokenId,
+    tokenOwnerAddress
+  }: {
+    tokenId: number;
+    contractAddress: string;
+    tokenOwnerAddress: string;
+  }) => Promise<any>;
+  registerBroker: () => void;
 }
 
 const ArkContext = createContext<ArkInterface>(null!);
@@ -21,7 +31,9 @@ export function ArkProvider({
   const {
     account,
     create: createBurner,
-    isDeploying: isBurnerDeploying
+    isDeploying: isBurnerDeploying,
+    listItem,
+    registerBroker
   } = useBurner();
 
   return (
@@ -29,7 +41,9 @@ export function ArkProvider({
       value={{
         account,
         isBurnerDeploying,
-        createBurner
+        createBurner,
+        listItem,
+        registerBroker
       }}
     >
       {children}

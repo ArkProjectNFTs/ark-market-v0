@@ -47,15 +47,30 @@ const CollectionItemsGridItem: React.FC<CollectionItemsGridItemProps> = ({
               <rect width="32" height="32" rx="4" />
             </svg>
           ) : (
-            <Image
-              fallbackSrc="/placeholder.png"
-              className="h-full w-full rounded-sm object-cover object-center"
-              src={item?.normalized_metadata.image.replace(
-                "ipfs://",
-                env.NEXT_PUBLIC_IPFS_PROVIDER
+            <>
+              {item.normalized_metadata.image.includes("mp4") ? (
+                <video
+                  muted
+                  loop
+                  autoPlay
+                  poster="/placeholder.png"
+                  src={item.normalized_metadata.image.replace(
+                    "ipfs://",
+                    env.NEXT_PUBLIC_IPFS_PROVIDER
+                  )}
+                />
+              ) : (
+                <Image
+                  fallbackSrc="/placeholder.png"
+                  className="h-full w-full rounded-sm object-cover object-center"
+                  src={item?.normalized_metadata.image.replace(
+                    "ipfs://",
+                    env.NEXT_PUBLIC_IPFS_PROVIDER
+                  )}
+                  alt={item.token_id}
+                />
               )}
-              alt={item.token_id}
-            />
+            </>
           )}
         </CardContent>
         <CardFooter className="px-2 pb-2 pt-2">

@@ -1,5 +1,7 @@
 import React from "react";
 
+import { env } from "@/env.mjs";
+
 import OnwerCollectionItems from "./owner-collection-items";
 
 interface CollectionItemsProps {
@@ -9,7 +11,7 @@ interface CollectionItemsProps {
 
 const fetchNfts = async (address: string) => {
   const res = await fetch(
-    `https://api.arkproject.dev/v1/owners/${address}/nfts`,
+    `${env.NEXT_PUBLIC_ARK_API_DOMAIN}/v1/owners/${address}/nfts`,
     {
       next: { revalidate: 30 },
       headers: {

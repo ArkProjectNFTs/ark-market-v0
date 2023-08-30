@@ -8,10 +8,5 @@ export default function Owned({
     address: string;
   };
 }) {
-  return (
-    <div className="hidden h-full flex-1 flex-col space-y-4 p-8 md:flex">
-      <OwnerHeader address={params.address} />
-      <OwnerCollection address={params.address} name="test" />
-    </div>
-  );
+  return <OwnerCollection address={params.address} name="test" />;
 }

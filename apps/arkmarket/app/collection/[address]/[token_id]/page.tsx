@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { env } from "@/env.mjs";
+
 import Activity from "./components/activity";
 import Header from "./components/header";
 import TokenActions from "./components/token-actions";
@@ -11,7 +13,7 @@ interface PageProps {
 
 const getToken = async (address: string, token_id: string) => {
   const res = await fetch(
-    `https://api.arkproject.dev/v1/nfts/${address}/${token_id}`,
+    `${env.NEXT_PUBLIC_ARK_API_DOMAIN}/v1/nfts/${address}/${token_id}`,
     {
       headers: {
         "X-API-KEY": "yW0akON1f55mOFwBPXPme4AFfLktbRiQ2GNdT1Mc",
@@ -25,12 +27,17 @@ const getToken = async (address: string, token_id: string) => {
 
 const Page: React.FC<PageProps> = async ({ params }) => {
   const token = await getToken(params.address, params.token_id);
+  console.log(token);
   return (
     <div className="flex flex-1 space-x-8 p-8">
       <div className="flex-1">
         <div className="hidden h-full flex-1 flex-col space-y-4 md:flex">
-          <Header token={token}/>
-          <TokenActions />
+          <Header token={token} />
+          <TokenActions
+            tokenId={params.token_id}
+            tokenOwnerAddress={token.owner}
+            contractAddress={params.address}
+          />
           <Activity />
         </div>
       </div>

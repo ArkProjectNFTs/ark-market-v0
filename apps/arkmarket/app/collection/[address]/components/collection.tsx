@@ -7,7 +7,7 @@ import CollectionItemsHeader from "./collection-items-header";
 import CollectionItemsList from "./collection-items-list";
 
 interface CollectionProps {
-  collectionItems: any;
+  collectionItems: any[];
   address: string;
   name: string;
 }
@@ -20,18 +20,22 @@ const Collection: React.FC<CollectionProps> = ({
   const [view, setView] = React.useState<"grid" | "list">("grid");
   return (
     <div>
-      <CollectionItemsHeader view={view} setView={setView} />
+      <CollectionItemsHeader
+        itemsCount={collectionItems.length}
+        view={view}
+        setView={setView}
+      />
       {view === "grid" ? (
         <CollectionItemsGrid
           name={name}
           address={address}
-          items={collectionItems.result}
+          items={collectionItems}
         />
       ) : (
         <CollectionItemsList
           name={name}
           address={address}
-          items={collectionItems.result}
+          items={collectionItems}
         />
       )}
     </div>
