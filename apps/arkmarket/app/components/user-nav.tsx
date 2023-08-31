@@ -1,10 +1,16 @@
 "use client";
 
 import { CustomConnectButton } from "@ark-project/ark-modal";
+import { useAccount } from "@starknet-react/core";
 
 import { Button } from "@/components/ui/button";
 
 export function UserNav() {
+  useAccount({
+    onConnect: () => {
+      console.log("connected");
+    }
+  });
   return (
     <div>
       <CustomConnectButton>

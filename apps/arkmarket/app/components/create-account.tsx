@@ -7,8 +7,6 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
 
-
-
 export const formatAddress = (address: string) => {
   return address.slice(0, 6) + "..." + address.slice(-4);
 };
