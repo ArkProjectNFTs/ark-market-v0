@@ -69,6 +69,10 @@ export const useBurner = () => {
     if (!account) {
       return;
     }
+    const brokenStorage = Storage.get("broker");
+    if (!brokenStorage) {
+      return;
+    }
     const { transaction_hash } = await account.execute({
       contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
       entrypoint: "register_broker",
@@ -79,7 +83,10 @@ export const useBurner = () => {
         chain_id: shortString.encodeShortString(env.NEXT_PUBLIC_ARK_CHAIN_ID)
       })
     });
-    return await provider.waitForTransaction(transaction_hash);
+    Storage.set("broker", env.NEXT_PUBLIC_BROKER_NAME);
+    return await provider.waitForTransaction(transaction_hash, {
+      retryInterval: 500
+    });
   }, [account]);
 
   const listItem = useCallback(

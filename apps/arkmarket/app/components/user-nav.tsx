@@ -1,16 +1,32 @@
 "use client";
 
+import { use, useEffect } from "react";
+
+import { useBurner } from "@/hooks/useBurner";
 import { CustomConnectButton } from "@ark-project/ark-modal";
 import { useAccount } from "@starknet-react/core";
 
 import { Button } from "@/components/ui/button";
 
 export function UserNav() {
-  useAccount({
-    onConnect: () => {
-      console.log("connected");
+  const { account, isDeploying, create, registerBroker } = useBurner();
+
+  const { status } = useAccount();
+
+  useEffect(() => {
+    if (status === "connected") {
+      if (!account) {
+        create();
+      }
     }
-  });
+  }, [status, create, account]);
+
+  useEffect(() => {
+    if (account && !isDeploying) {
+      registerBroker();
+    }
+  }, [account, isDeploying, registerBroker]);
+
   return (
     <div>
       <CustomConnectButton>
@@ -43,14 +59,12 @@ export function UserNav() {
                       {displayBalance}
                     </span>
                   )}
-
                   <div className="flex h-full items-center gap-2 rounded-md  bg-background px-1.5">
                     {avatar}
                     {starkName ?? truncatedAddress}
                   </div>
                 </Button>
               )}
-
               {address === undefined && (
                 <Button onClick={openConnectModal}>Connect wallet</Button>
               )}
