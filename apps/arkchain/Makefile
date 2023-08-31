@@ -1,10 +1,9 @@
 config := --account ./data/katana_account.json --keystore ./data/katana_key.json --rpc http://0.0.0.0:4040 --keystore-password 1234
 
 ob_cl = $(shell starkli class-hash target/dev/arkchain_orderbook.sierra.json)
-ob_addr := 0x05a37d8286d181f735589df21793025e58d06170e1346c36a51c9aafd538e1e1
+ob_addr := 0x02ac07491203f958711ec6ee94e0fc07aaf9d9fe0df5ffc95e0c99b975791a56
 
-#ark_executor_sn := 0x0735ee89ead07b4fcc46ed2d474b7e9748d9405b56f0c5566e287cd2fd395bff
-ark_executor_sn := 0x06fa8b349adca81e1e50960b3e6a93beb178e2ea6305e84320b4711436c13c63
+ark_executor_sn := 0x0573e38d2b37032172a1f9b370bd81954a0d44934e38154ff75a678700b73430
 
 # Katana accounts
 # has token 1 and 2

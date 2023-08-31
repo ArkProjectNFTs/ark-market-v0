@@ -78,7 +78,10 @@ mod executor {
             eth_contract.transferFrom(order.taker_address, order.maker_address, order.price);
 
             let block_timestamp = starknet::info::get_block_timestamp();
-            self.emit(OrderExecuted { order_hash: order.order_hash, block_timestamp });
+            self.emit(OrderExecuted {
+                order_hash: order.order_hash,
+                block_timestamp,
+            });
 
             let messaging = IAppchainMessagingDispatcher {
                 contract_address: self.messaging_address.read()
@@ -88,7 +91,7 @@ mod executor {
                 self.arkchain_orderbook_address.read(),
                 // finalize_order_buy selector
                 0x00dc783263b4080fde14fad025c03978a991c3b64149cea7bb5e707b082a302f,
-                array![order.order_hash].span(),
+                array![order.order_hash, order.taker_address.into()].span(),
             );
         }
     }

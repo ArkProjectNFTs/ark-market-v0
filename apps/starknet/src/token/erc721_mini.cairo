@@ -13,6 +13,13 @@ trait IERC721Mini<T> {
     fn mint_uri_free(ref self: T, to: ContractAddress, token_id: u256, token_uri: felt252);
 
     fn transfer_from(ref self: T, from: ContractAddress, to: ContractAddress, token_id: u256);
+
+    fn approve(ref self: T, to: ContractAddress, token_id: u256);
+    fn set_approval_for_all(ref self: T, operator: ContractAddress, approved: bool);
+    fn get_approved(self: @T, token_id: u256) -> ContractAddress;
+    fn is_approved_for_all(
+        self: @T, owner: ContractAddress, operator: ContractAddress
+    ) -> bool;
 }
 
 #[starknet::contract]
@@ -32,6 +39,8 @@ mod erc721_mini {
         symbol: felt252,
         owners: LegacyMap<u256, ContractAddress>,
         uris: LegacyMap<u256, felt252>,
+        token_approvals: LegacyMap<u256, ContractAddress>,
+        operator_approvals: LegacyMap<(ContractAddress, ContractAddress), bool>,
     }
 
     #[constructor]
@@ -43,7 +52,9 @@ mod erc721_mini {
     #[event]
     #[derive(Drop, starknet::Event)]
     enum Event {
-        Transfer: Transfer, 
+        Transfer: Transfer,
+        Approval: Approval,
+        ApprovalForAll: ApprovalForAll,
     }
 
     #[derive(Drop, starknet::Event)]
@@ -51,6 +62,20 @@ mod erc721_mini {
         from: ContractAddress,
         to: ContractAddress,
         token_id: u256,
+    }
+
+    #[derive(Drop, starknet::Event)]
+    struct Approval {
+        owner: ContractAddress,
+        approved: ContractAddress,
+        token_id: u256
+    }
+
+    #[derive(Drop, starknet::Event)]
+    struct ApprovalForAll {
+        owner: ContractAddress,
+        operator: ContractAddress,
+        approved: bool
     }
 
     #[external(v0)]
@@ -94,6 +119,34 @@ mod erc721_mini {
 
             self.emit(Transfer { from, to, token_id });
         }
+
+        fn approve(ref self: ContractState, to: ContractAddress, token_id: u256) {
+            let owner = get_owner_of(@self, token_id);
+
+            let caller = starknet::get_caller_address();
+            assert(
+                owner == caller || ERC721MiniImpl::is_approved_for_all(@self, owner, caller),
+                'ERC721: unauthorized caller'
+            );
+            _approve(ref self, to, token_id);
+        }
+
+        fn set_approval_for_all(
+            ref self: ContractState, operator: ContractAddress, approved: bool
+        ) {
+            _set_approval_for_all(ref self, starknet::get_caller_address(), operator, approved)
+        }
+
+        fn get_approved(self: @ContractState, token_id: u256) -> ContractAddress {
+            assert(exists(self, token_id), 'ERC721: invalid token ID');
+            self.token_approvals.read(token_id)
+        }
+
+        fn is_approved_for_all(
+            self: @ContractState, owner: ContractAddress, operator: ContractAddress
+        ) -> bool {
+            self.operator_approvals.read((owner, operator))
+        }
     }
 
     //
@@ -124,5 +177,24 @@ mod erc721_mini {
         self.owners.write(token_id, Zeroable::zero());
 
         self.emit(Transfer { from: owner, to: Zeroable::zero(), token_id,  });
+    }
+
+    fn _approve(ref self: ContractState, to: ContractAddress, token_id: u256) {
+        let owner = get_owner_of(@self, token_id);
+        assert(owner != to, 'ERC721: approval to owner');
+
+        self.token_approvals.write(token_id, to);
+        self.emit(Approval { owner, approved: to, token_id });
+    }
+
+    fn _set_approval_for_all(
+        ref self: ContractState,
+        owner: ContractAddress,
+        operator: ContractAddress,
+        approved: bool
+    ) {
+        assert(owner != operator, 'ERC721: self approval');
+        self.operator_approvals.write((owner, operator), approved);
+        self.emit(ApprovalForAll { owner, operator, approved });
     }
 }

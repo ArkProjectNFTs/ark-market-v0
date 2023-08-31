@@ -84,7 +84,11 @@ mod orderbook {
         chain_id: felt252,
         // data
         timestamp: u64,
+        seller: ContractAddress,
         buyer: ContractAddress,
+        collection: ContractAddress,
+        token_id: u256,
+        price: u256,
     }
 
     #[derive(Drop, starknet::Event)]
@@ -93,6 +97,11 @@ mod orderbook {
         hash: felt252,
         // data
         timestamp: u64,
+        seller: ContractAddress,
+        buyer: ContractAddress,
+        collection: ContractAddress,
+        token_id: u256,
+        price: u256,
     }
 
     #[derive(Drop, starknet::Event)]
@@ -113,7 +122,7 @@ mod orderbook {
     }
 
     #[l1_handler]
-    fn finalize_order_buy(ref self: ContractState, from_address: felt252, order_hash: felt252) {
+    fn finalize_order_buy(ref self: ContractState, from_address: felt252, order_hash: felt252, buyer: ContractAddress) {
         assert(from_address == self.executor_address.read().into(), 'Bad executor');
 
         let tup: (Option<OrderStatus>, Option<OrderListing>) = order_read::<OrderListing>(order_hash);
@@ -149,6 +158,11 @@ mod orderbook {
                 self.emit(OrderBuyFinalized {
                     hash: order_hash,
                     timestamp: starknet::get_block_timestamp(),
+                    seller: order.seller,
+                    buyer,
+                    collection: order.collection,
+                    token_id: order.token_id,
+                    price: order.price,
                 });
             },
             OrderStatus::Finalized => panic_with_felt252('Order already finalized'),
@@ -304,6 +318,10 @@ mod orderbook {
                 chain_id: b.chain_id,
                 timestamp: starknet::get_block_timestamp(),
                 buyer: order.buyer,
+                seller: order_l.seller,
+                collection: order_l.collection,
+                token_id: order_l.token_id,
+                price: order_l.price,
             });
         }
     }
