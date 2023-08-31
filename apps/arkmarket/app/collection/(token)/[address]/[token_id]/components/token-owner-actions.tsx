@@ -9,7 +9,6 @@ import { convertWeiPriceToEth } from "@/lib/utils/convertPrice";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EthIcon } from "@/components/ui/icons";
-import { Input } from "@/components/ui/input";
 
 interface TokenOwnerActionsProps {
   token: any;
@@ -22,21 +21,21 @@ const TokenOwnerActions: React.FC<TokenOwnerActionsProps> = ({
 }) => {
   const [listing, setListing] = useLocalStorage<{
     contractAddress: string | null;
-    tokenIds: Array<string>;
+    tokenId: string;
   }>("listing", {
     contractAddress: null,
-    tokenIds: []
+    tokenId: ""
   });
+
   const router = useRouter();
 
   const triggerListing = () => {
     if (listing.contractAddress === contractAddress) {
-      setListing({
-        ...listing,
-        tokenIds: [...listing.tokenIds, token.tokenId]
-      });
+      // setListing({ ...listing, tokenIds: [...listing.tokenIds, tokenId] });
+      setListing({ ...listing, tokenId: token.tokenId });
     } else {
-      setListing({ contractAddress, tokenIds: [token.tokenId] });
+      // setListing({ contractAddress, tokenIds: [tokenId] });
+      setListing({ contractAddress, tokenId: token.tokenId });
     }
     router.push("/profile/sell");
   };

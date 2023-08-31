@@ -2,17 +2,20 @@
 
 import { env } from "@/env.mjs";
 import { useAccount, useContractRead } from "@starknet-react/core";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 import ApproveToken from "./approve-token";
 import ListToken from "./list-token";
 
-interface SellActionsProps {
-  contractAddress: string;
-}
-
-const SellActions: React.FC<SellActionsProps> = ({ contractAddress }) => {
+const SellActions = () => {
   const { address } = useAccount();
-  console.log(contractAddress);
+  const [{ contractAddress, tokenId }, setListing] = useLocalStorage<{
+    contractAddress: string | null;
+    tokenId: string;
+  }>("listing", {
+    contractAddress: null,
+    tokenId: []
+  });
   const { data: isApprovedForAll } = useContractRead({
     abi: [
       {
@@ -38,11 +41,18 @@ const SellActions: React.FC<SellActionsProps> = ({ contractAddress }) => {
     ],
     address: contractAddress,
     functionName: "is_approved_for_all",
-    args: [address, env.NEXT_PUBLIC_OPERATOR_ADDRESS]
+    args: [address, env.NEXT_PUBLIC_OPERATOR_ADDRESS],
+    watch: true
   });
 
-  console.log(isApprovedForAll);
-
-  return <>{isApprovedForAll ? <ListToken /> : <ApproveToken />}</>;
+  return (
+    <>
+      {isApprovedForAll ? (
+        <ListToken contractAddress={contractAddress} tokenId={tokenId} />
+      ) : (
+        <ApproveToken contractAddress={contractAddress} />
+      )}
+    </>
+  );
 };
 export default SellActions;
