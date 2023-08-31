@@ -5,8 +5,6 @@ import { redirect } from "next/navigation";
 
 import { useAccount } from "@starknet-react/core";
 
-import { Button } from "@/components/ui/button";
-
 import ConnectWallet from "./components/connect-wallet";
 
 /**

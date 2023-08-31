@@ -1,10 +1,9 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 
-import { useToast } from "@/hooks/use-toast";
-import { useBurner } from "@/hooks/useBurner";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 
 import { convertWeiPriceToEth } from "@/lib/utils/convertPrice";
 import { Button } from "@/components/ui/button";
@@ -21,30 +20,27 @@ const TokenOwnerActions: React.FC<TokenOwnerActionsProps> = ({
   token,
   contractAddress
 }) => {
-  const { toast } = useToast();
-  const { listItem } = useBurner();
-  const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
-  const onItemlist = async () => {
-    try {
-      setIsSubmitting(true);
-      await listItem({
-        tokenId: parseInt(token.token_id),
-        tokenOwnerAddress: token.owner,
-        contractAddress: token.token_address
+  const [listing, setListing] = useLocalStorage<{
+    contractAddress: string | null;
+    tokenIds: Array<string>;
+  }>("listing", {
+    contractAddress: null,
+    tokenIds: []
+  });
+  const router = useRouter();
+
+  const triggerListing = () => {
+    if (listing.contractAddress === contractAddress) {
+      setListing({
+        ...listing,
+        tokenIds: [...listing.tokenIds, token.tokenId]
       });
-      toast({
-        title: "Order placed",
-        description: "Your order has been submitted"
-      });
-      setIsSubmitting(false);
-    } catch (error: any) {
-      setIsSubmitting(false);
-      toast({
-        title: "Error",
-        description: error.message
-      });
+    } else {
+      setListing({ contractAddress, tokenIds: [token.tokenId] });
     }
+    router.push("/profile/sell");
   };
+
   const price = convertWeiPriceToEth(token.listing_price || "0");
   return (
     <Card>
@@ -74,16 +70,7 @@ const TokenOwnerActions: React.FC<TokenOwnerActionsProps> = ({
                 </Button>
               </>
             ) : (
-              <Button onClick={() => onItemlist()}>
-                {isSubmitting ? (
-                  <div className="flex items-center justify-center">
-                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                    <span>Please wait</span>
-                  </div>
-                ) : (
-                  <>List Item</>
-                )}
-              </Button>
+              <Button onClick={() => triggerListing()}>List Item</Button>
             )}
           </div>
           <div className="flex items-center justify-between py-2 text-sm">
