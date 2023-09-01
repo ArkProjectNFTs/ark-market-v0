@@ -70,10 +70,10 @@ export const useBurner = () => {
       return;
     }
 
-    const brokerStorage = Storage.get("broker");
-    if (brokerStorage) {
-      return;
-    }
+    // const brokerStorage = Storage.get("broker");
+    // if (brokerStorage) {
+    //   return;
+    // }
 
     const { transaction_hash } = await account.execute({
       contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
