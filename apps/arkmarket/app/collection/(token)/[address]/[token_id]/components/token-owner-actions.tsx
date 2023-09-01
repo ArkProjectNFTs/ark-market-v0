@@ -10,6 +10,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EthIcon } from "@/components/ui/icons";
 
+declare module "@uidotdev/usehooks" {
+  function useLocalStorage<T>(
+    storageKey: string,
+    initialState: T
+  ): [T, (value: T) => void];
+}
+
 interface TokenOwnerActionsProps {
   token: any;
   contractAddress: string;
@@ -20,10 +27,10 @@ const TokenOwnerActions: React.FC<TokenOwnerActionsProps> = ({
   contractAddress
 }) => {
   const [listing, setListing] = useLocalStorage<{
-    contractAddress: string | null;
+    contractAddress: string;
     tokenId: string;
   }>("listing", {
-    contractAddress: null,
+    contractAddress: "",
     tokenId: ""
   });
 

@@ -9,12 +9,12 @@ import ListToken from "./list-token";
 
 const SellActions = () => {
   const { address } = useAccount();
-  const [{ contractAddress, tokenId }, setListing] = useLocalStorage<{
-    contractAddress: string | null;
+  const [{ contractAddress, tokenId }] = useLocalStorage<{
+    contractAddress: string;
     tokenId: string;
   }>("listing", {
-    contractAddress: null,
-    tokenId: []
+    contractAddress: "",
+    tokenId: ""
   });
   const { data: isApprovedForAll } = useContractRead({
     abi: [
