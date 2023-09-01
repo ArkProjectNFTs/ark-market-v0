@@ -1,8 +1,9 @@
 import React from "react";
 
+import { cairo } from "starknet";
 import { useBurner } from "@/hooks/useBurner";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { useAccount } from "@starknet-react/core";
+import { useAccount, useContractWrite } from "@starknet-react/core";
 import { validateAndParseAddress } from "starknet";
 
 import { Button } from "@/components/ui/button";
@@ -21,25 +22,40 @@ const TokenPublicActions = () => {
   const { buyItem } = useBurner();
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
 
+  const { write } = useContractWrite({
+    calls: [
+      {
+        contractAddress:
+          "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
+        entrypoint: "approve",
+        calldata: [
+          "0x06495ae175214d51ce8cff05ce3ea0c75aa50c7fdcd7531eee358f2065bf524b",
+          cairo.uint256(100)
+        ]
+      }
+    ]
+  });
+
   const onItemBuy = async () => {
-    try {
-      setIsSubmitting(true);
-      if (!address) throw new Error("Please connect your wallet first.");
-      await buyItem({
-        address: validateAndParseAddress(address)
-      });
-      toast({
-        title: "Item bought",
-        description: "You have successfully bought this item."
-      });
-      setIsSubmitting(false);
-    } catch (error: any) {
-      setIsSubmitting(false);
-      toast({
-        title: "Error",
-        description: error.message
-      });
-    }
+    await write();
+    // try {
+    //   setIsSubmitting(true);
+    //   if (!address) throw new Error("Please connect your wallet first.");
+    //   await buyItem({
+    //     address: validateAndParseAddress(address)
+    //   });
+    //   toast({
+    //     title: "Item bought",
+    //     description: "You have successfully bought this item."
+    //   });
+    //   setIsSubmitting(false);
+    // } catch (error: any) {
+    //   setIsSubmitting(false);
+    //   toast({
+    //     title: "Error",
+    //     description: error.message
+    //   });
+    // }
   };
 
   return (

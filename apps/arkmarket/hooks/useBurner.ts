@@ -69,12 +69,6 @@ export const useBurner = () => {
     if (!account) {
       return;
     }
-
-    // const brokerStorage = Storage.get("broker");
-    // if (brokerStorage) {
-    //   return;
-    // }
-
     const { transaction_hash } = await account.execute({
       contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
       entrypoint: "register_broker",
@@ -85,7 +79,6 @@ export const useBurner = () => {
         chain_id: shortString.encodeShortString(env.NEXT_PUBLIC_ARK_CHAIN_ID)
       })
     });
-    Storage.set("broker", env.NEXT_PUBLIC_BROKER_NAME);
     return await provider.waitForTransaction(transaction_hash, {
       retryInterval: 500
     });
