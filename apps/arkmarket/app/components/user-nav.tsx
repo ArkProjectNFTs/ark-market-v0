@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 
 import { useBurner } from "@/hooks/useBurner";
 import { CustomConnectButton } from "@ark-project/ark-modal";
@@ -9,7 +9,7 @@ import { useAccount } from "@starknet-react/core";
 import { Button } from "@/components/ui/button";
 
 export function UserNav() {
-  const { account, isDeploying, create, registerBroker } = useBurner();
+  const { account, create } = useBurner();
 
   const { status } = useAccount();
 
@@ -20,12 +20,6 @@ export function UserNav() {
       }
     }
   }, [status, create, account]);
-
-  useEffect(() => {
-    if (account && !isDeploying) {
-      registerBroker();
-    }
-  }, [account, isDeploying, registerBroker]);
 
   return (
     <div>
