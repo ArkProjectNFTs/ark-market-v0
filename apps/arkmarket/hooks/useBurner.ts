@@ -69,10 +69,12 @@ export const useBurner = () => {
     if (!account) {
       return;
     }
-    const brokenStorage = Storage.get("broker");
-    if (!brokenStorage) {
+
+    const brokerStorage = Storage.get("broker");
+    if (brokerStorage) {
       return;
     }
+
     const { transaction_hash } = await account.execute({
       contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
       entrypoint: "register_broker",
