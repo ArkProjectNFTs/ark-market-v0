@@ -53,6 +53,7 @@ mod executor {
 
     #[external(v0)]
     impl ExecutorImpl of IExecutor<ContractState> {
+
         fn update_sequencer_address(ref self: ContractState, sequencer_address: ContractAddress) {
             assert(
                 starknet::get_caller_address() == self.admin_address.read(),
@@ -60,6 +61,15 @@ mod executor {
             );
 
             self.arkchain_sequencer_address.write(sequencer_address);
+        }
+
+        fn update_orderbook_address(ref self: ContractState, orderbook_address: ContractAddress) {
+            assert(
+                starknet::get_caller_address() == self.admin_address.read(),
+                'Unauthorized admin address'
+            );
+
+            self.arkchain_orderbook_address.write(orderbook_address);
         }
 
         fn execute_buy_order(ref self: ContractState, order: OrderExecute) {

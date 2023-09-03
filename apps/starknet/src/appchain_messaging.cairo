@@ -1,5 +1,7 @@
 #[starknet::interface]
 trait IAppchainMessaging<T> {
+    fn update_appchain_account_address(ref self: T, appchain_address: starknet::ContractAddress);
+
     /// Sends a message to an appchain by emitting an event.
     /// Returns the message hash and the nonce.
     fn send_message_to_appchain(
@@ -239,6 +241,14 @@ mod appchain_messaging {
 
     #[external(v0)]
     impl AppchainMessagingImpl of IAppchainMessaging<ContractState> {
+        fn update_appchain_account_address(ref self: ContractState, appchain_address: ContractAddress) {
+            assert(
+                starknet::get_caller_address() == self.owner.read(),
+                'Unauthorized update'
+            );
+
+            self.appchain_account.write(appchain_address);
+        }
 
         fn send_message_to_appchain(
             ref self: ContractState,
