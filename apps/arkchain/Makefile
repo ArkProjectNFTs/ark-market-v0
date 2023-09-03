@@ -27,10 +27,27 @@ setup:
 
 
 
+setup_arkproject_testnet:
+	starkli declare target/dev/arkchain_orderbook.sierra.json \
+	--account ../arkchain/data/katana_server_account.json \
+	--keystore ../arkchain/data/katana_server_key.json \
+	--keystore-password 1234 \
+	--rpc https://katana.arkproject.dev
 
+	starkli deploy 0x054edc81aed680505e358250136d85cbee2b85e79c601aefc78acaa03ceac128 \
+	0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973 \
+	--salt 0x123456789 \
+	--account ../arkchain/data/katana_server_account.json \
+	--keystore ../arkchain/data/katana_server_key.json \
+	--keystore-password 1234 \
+	--rpc https://katana.arkproject.dev
 
-
-
+	starkli invoke 0x0430b739835b464e906641b46aa9887e58826f9236936e30e717a8c97b4caf5b set_executor_sn_address \
+	0x06495ae175214d51ce8cff05ce3ea0c75aa50c7fdcd7531eee358f2065bf524b \
+	--account ../arkchain/data/katana_server_account.json \
+	--keystore ../arkchain/data/katana_server_key.json \
+	--keystore-password 1234 \
+	--rpc https://katana.arkproject.dev
 
 katana:
 	@echo ./target/release/katana -p 4040 \
