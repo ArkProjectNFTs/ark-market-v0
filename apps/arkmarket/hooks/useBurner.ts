@@ -105,7 +105,7 @@ export const useBurner = () => {
           seller: tokenOwnerAddress,
           collection: contractAddress,
           token_id: cairo.uint256(tokenId),
-          price: cairo.uint256(1000),
+          price: cairo.uint256(100000000),
           end_date: "0",
           // Change broker name for current env broker
           broker_name: shortString.encodeShortString(

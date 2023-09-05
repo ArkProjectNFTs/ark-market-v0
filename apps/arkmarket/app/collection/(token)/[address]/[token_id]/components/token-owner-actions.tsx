@@ -2,34 +2,35 @@
 
 import React from "react";
 
+import { useToast } from "@/hooks/use-toast";
 import { useBurner } from "@/hooks/useBurner";
 import { ReloadIcon } from "@radix-ui/react-icons";
 
-import { Card } from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast";
+import { convertWeiPriceToEth } from "@/lib/utils/convertPrice";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { EthIcon } from "@/components/ui/icons";
+import { Input } from "@/components/ui/input";
 
 interface TokenOwnerActionsProps {
-  tokenId: string;
-  tokenOwnerAddress: string;
+  token: any;
   contractAddress: string;
 }
 
 const TokenOwnerActions: React.FC<TokenOwnerActionsProps> = ({
-  tokenId,
-  tokenOwnerAddress,
+  token,
   contractAddress
 }) => {
   const { toast } = useToast();
   const { listItem } = useBurner();
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
-
   const onItemlist = async () => {
     try {
       setIsSubmitting(true);
       await listItem({
-        tokenId: parseInt(tokenId),
-        tokenOwnerAddress,
-        contractAddress
+        tokenId: parseInt(token.token_id),
+        tokenOwnerAddress: token.owner,
+        contractAddress: token.token_address
       });
       toast({
         title: "Order placed",
@@ -44,27 +45,69 @@ const TokenOwnerActions: React.FC<TokenOwnerActionsProps> = ({
       });
     }
   };
-
+  const price = convertWeiPriceToEth(token.listing_price || "0");
   return (
     <Card>
-      <div className="flex items-center justify-between p-6">
-        <div className="text-lg font-bold">Item not listed</div>
-        <button
-          onClick={() => onItemlist()}
-          className="inline-block animate-background rounded-lg bg-gray-900 from-pink-500 via-red-500 to-yellow-500 bg-[length:_400%_400%] p-0.5 [animation-duration:_6s] hover:bg-gradient-to-r dark:bg-gray-800"
-        >
-          <div className="rounded-md bg-white px-5 py-3 text-sm font-medium text-gray-900 dark:bg-gray-900 dark:text-white">
-            {isSubmitting ? (
-              <div className="flex items-center justify-center">
-                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                <span>Please wait</span>
-              </div>
+      <CardHeader>
+        <CardTitle>
+          {token.listing_status === "listed" ? (
+            <div className="flex items-center">
+              <span>Listed for {price ? price : "N/A"}</span>
+              <EthIcon />
+            </div>
+          ) : (
+            "Item not listed"
+          )}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-col space-y-6">
+          <div className="flex space-x-6">
+            {token.listing_status === "listed" ? (
+              <>
+                <Button className="w-64 shrink">Instant sell</Button>
+                <Button className="w-64 shrink" variant="outline">
+                  Cancel listing
+                </Button>
+                <Button className="w-64 shrink" variant="outline">
+                  Edit listing
+                </Button>
+              </>
             ) : (
-              <>List Item</>
+              <Button onClick={() => onItemlist()}>
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center">
+                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                    <span>Please wait</span>
+                  </div>
+                ) : (
+                  <>List Item</>
+                )}
+              </Button>
             )}
           </div>
-        </button>
-      </div>
+          <div className="flex items-center justify-between py-2 text-sm">
+            <div className="flex w-32 flex-col">
+              <span className="text-xs text-muted-foreground">Expiration</span>
+              <span className="font-semibold">3 days</span>
+            </div>
+            <div className="flex w-32 flex-col">
+              <span className="text-xs text-muted-foreground">Listed</span>
+              <span className="font-semibold">5h ago</span>
+            </div>
+            <div className="flex w-32 flex-col">
+              <span className="text-xs text-muted-foreground">Created by</span>
+              <span className="font-semibold">Team Everai</span>
+            </div>
+            <div className="flex w-32 flex-col">
+              <span className="text-xs text-muted-foreground">
+                Floor Difference
+              </span>
+              <span className="font-semibold">+1%</span>
+            </div>
+          </div>
+        </div>
+      </CardContent>
     </Card>
   );
 };

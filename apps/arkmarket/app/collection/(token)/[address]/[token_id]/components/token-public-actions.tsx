@@ -1,22 +1,21 @@
 import React from "react";
 
-import { cairo } from "starknet";
+import { useToast } from "@/hooks/use-toast";
 import { useBurner } from "@/hooks/useBurner";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { useAccount, useContractWrite } from "@starknet-react/core";
-import { validateAndParseAddress } from "starknet";
+import { cairo, validateAndParseAddress } from "starknet";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { EthIcon } from "@/components/ui/icons";
+import { convertWeiPriceToEth } from "@/lib/utils/convertPrice";
 
-const TokenPublicActions = () => {
+interface TokenPublicActionsProps {
+  token: any;
+}
+
+const TokenPublicActions: React.FC<TokenPublicActionsProps> = ({ token }) => {
   const { address } = useAccount();
   const { toast } = useToast();
   const { buyItem } = useBurner();
@@ -57,12 +56,16 @@ const TokenPublicActions = () => {
     //   });
     // }
   };
-
+  const price = convertWeiPriceToEth(token.listing_price || "0");
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Listed for 4.245 $7.0K</CardTitle>
-        <CardDescription>Expires in 3d</CardDescription>
+        <CardTitle>
+          <div className="flex items-center">
+            <span>Listed for {price ? price : "N/A"}</span>
+            <EthIcon />
+          </div>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col space-y-6">

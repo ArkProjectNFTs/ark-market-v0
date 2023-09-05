@@ -1,4 +1,10 @@
+"use client";
+
 import React from "react";
+import Link from "next/link";
+
+import { useAccount } from "@starknet-react/core";
+import { validateAndParseAddress } from "starknet";
 
 import { Badge } from "@/components/ui/badge";
 
@@ -18,6 +24,14 @@ interface TokenSidebarProps {
 }
 
 const Header: React.FC<TokenSidebarProps> = ({ token }) => {
+  const { address } = useAccount();
+  const [walletAddress, setWalletAddress] = React.useState<string>("");
+  React.useEffect(() => {
+    if (address !== undefined) {
+      setWalletAddress(validateAndParseAddress(address));
+    }
+  }, [address]);
+
   return (
     <>
       <div className="flex flex-col space-y-2">
@@ -35,7 +49,11 @@ const Header: React.FC<TokenSidebarProps> = ({ token }) => {
         </div>
         <div className="flex w-32 flex-col">
           <span className="text-xs text-muted-foreground">Owner</span>
-          <span className="font-semibold truncate">{token.owner}</span>
+          <span className="truncate font-semibold">
+            <Link href={`/profile/${token.owner}`}>
+              {token.owner === walletAddress ? "You" : token.owner}
+            </Link>
+          </span>
         </div>
         <div className="flex w-32 flex-col">
           <span className="text-xs text-muted-foreground">Held for</span>

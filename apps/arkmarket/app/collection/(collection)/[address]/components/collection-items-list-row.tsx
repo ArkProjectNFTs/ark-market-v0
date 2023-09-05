@@ -7,6 +7,7 @@ import { env } from "@/env.mjs";
 import { CollectionItem } from "@/types";
 
 import { removeLeadingZeros } from "@/lib/utils";
+import { convertWeiPriceToEth } from "@/lib/utils/convertPrice";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "@/components/ui/image";
 import { Separator } from "@/components/ui/separator";
@@ -14,14 +15,13 @@ import { Separator } from "@/components/ui/separator";
 interface CollectionRowProps {
   item: CollectionItem;
   address: string;
-  name: string;
 }
 
 const CollectionRow: React.FC<CollectionRowProps> = ({
   item,
   address,
-  name
 }) => {
+  const price = convertWeiPriceToEth(item.listing_price || "0");
   return (
     <Link href={`/collection/${address}/${item.token_id}`}>
       <div className="flex h-12 w-full text-sm hover:bg-accent">
@@ -51,10 +51,18 @@ const CollectionRow: React.FC<CollectionRowProps> = ({
               alt={item.token_id}
             />
           )}
-          <span>{`${name} ${removeLeadingZeros(item.token_id)}`}</span>
+          <span>{item?.normalized_metadata?.name}</span>
         </div>
-        <div className="align flex w-24 flex-auto items-center justify-end">
-          <span>0.34</span>
+        <div className="align flex w-28 flex-auto items-center justify-end">
+          {item.listing_price !== "" ? (
+            <span className="float-right">
+              {price} ETH
+            </span>
+          ) : (
+            <span className="float-right">
+              {" - "}
+            </span>
+          )}
         </div>
         <div className="align flex w-24 flex-auto items-center justify-end">
           <span>0.3</span>
