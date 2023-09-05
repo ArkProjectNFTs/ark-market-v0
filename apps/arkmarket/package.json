@@ -32,6 +32,7 @@
     "@types/node": "20.5.1",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
+    "@uidotdev/usehooks": "^2.2.0",
     "add": "^2.0.6",
     "autoprefixer": "10.4.15",
     "bufferutil": "^4.0.7",

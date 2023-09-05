@@ -1,16 +1,21 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 
-import { useToast } from "@/hooks/use-toast";
-import { useBurner } from "@/hooks/useBurner";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 
 import { convertWeiPriceToEth } from "@/lib/utils/convertPrice";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EthIcon } from "@/components/ui/icons";
-import { Input } from "@/components/ui/input";
+
+declare module "@uidotdev/usehooks" {
+  function useLocalStorage<T>(
+    storageKey: string,
+    initialState: T
+  ): [T, (value: T) => void];
+}
 
 interface TokenOwnerActionsProps {
   token: any;
@@ -21,30 +26,27 @@ const TokenOwnerActions: React.FC<TokenOwnerActionsProps> = ({
   token,
   contractAddress
 }) => {
-  const { toast } = useToast();
-  const { listItem } = useBurner();
-  const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
-  const onItemlist = async () => {
-    try {
-      setIsSubmitting(true);
-      await listItem({
-        tokenId: parseInt(token.token_id),
-        tokenOwnerAddress: token.owner,
-        contractAddress: token.token_address
-      });
-      toast({
-        title: "Order placed",
-        description: "Your order has been submitted"
-      });
-      setIsSubmitting(false);
-    } catch (error: any) {
-      setIsSubmitting(false);
-      toast({
-        title: "Error",
-        description: error.message
-      });
+  const [listing, setListing] = useLocalStorage<{
+    contractAddress: string;
+    tokenId: string;
+  }>("listing", {
+    contractAddress: "",
+    tokenId: ""
+  });
+
+  const router = useRouter();
+
+  const triggerListing = () => {
+    if (listing.contractAddress === contractAddress) {
+      // setListing({ ...listing, tokenIds: [...listing.tokenIds, tokenId] });
+      setListing({ ...listing, tokenId: token.tokenId });
+    } else {
+      // setListing({ contractAddress, tokenIds: [tokenId] });
+      setListing({ contractAddress, tokenId: token.tokenId });
     }
+    router.push("/profile/sell");
   };
+
   const price = convertWeiPriceToEth(token.listing_price || "0");
   return (
     <Card>
@@ -74,16 +76,7 @@ const TokenOwnerActions: React.FC<TokenOwnerActionsProps> = ({
                 </Button>
               </>
             ) : (
-              <Button onClick={() => onItemlist()}>
-                {isSubmitting ? (
-                  <div className="flex items-center justify-center">
-                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                    <span>Please wait</span>
-                  </div>
-                ) : (
-                  <>List Item</>
-                )}
-              </Button>
+              <Button onClick={() => triggerListing()}>List Item</Button>
             )}
           </div>
           <div className="flex items-center justify-between py-2 text-sm">
