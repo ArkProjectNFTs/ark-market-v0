@@ -1,13 +1,11 @@
-"use client";
-
 import React from "react";
 
-import SellActions from "./components/sell-actions";
+import Sell from "./components/sell";
 
 const SellPage = () => {
   return (
-    <div className="flex items-center justify-center py-4">
-      <SellActions />
+    <div className="grid grid-cols-1 items-start gap-4 p-8 lg:grid-cols-3 lg:gap-8">
+      <Sell />
     </div>
   );
 };

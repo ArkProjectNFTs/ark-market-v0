@@ -3,47 +3,41 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
-import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useLocalStorage } from "usehooks-ts";
 
 import { convertWeiPriceToEth } from "@/lib/utils/convertPrice";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EthIcon } from "@/components/ui/icons";
 
-declare module "@uidotdev/usehooks" {
-  function useLocalStorage<T>(
-    storageKey: string,
-    initialState: T
-  ): [T, (value: T) => void];
-}
-
 interface TokenOwnerActionsProps {
   token: any;
   contractAddress: string;
+}
+
+interface Listing {
+  contractAddress: string | null;
+  tokenId: string | null;
 }
 
 const TokenOwnerActions: React.FC<TokenOwnerActionsProps> = ({
   token,
   contractAddress
 }) => {
-  const [listing, setListing] = useLocalStorage<{
-    contractAddress: string;
-    tokenId: string;
-  }>("listing", {
-    contractAddress: "",
-    tokenId: ""
+  
+  const [listing, setListing] = useLocalStorage<Listing>("listing", {
+    contractAddress: null,
+    tokenId: null
   });
 
   const router = useRouter();
 
   const triggerListing = () => {
-    if (listing.contractAddress === contractAddress) {
-      // setListing({ ...listing, tokenIds: [...listing.tokenIds, tokenId] });
-      setListing({ ...listing, tokenId: token.tokenId });
-    } else {
-      // setListing({ contractAddress, tokenIds: [tokenId] });
-      setListing({ contractAddress, tokenId: token.tokenId });
-    }
+    // if (listing.contractAddress === contractAddress) {
+    //   setListing((prevValue: Listing) => ({ ...prevValue, tokenId: token.tokenId }))
+    // } else {
+    setListing({ contractAddress: contractAddress, tokenId: token.token_id });
+    // }
     router.push("/profile/sell");
   };
 
