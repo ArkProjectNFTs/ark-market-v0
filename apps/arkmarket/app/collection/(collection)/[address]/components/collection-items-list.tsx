@@ -21,13 +21,11 @@ interface item {
 interface CollectionItemsListProps {
   items: item[];
   address: string;
-  name: string;
 }
 
 const CollectionsList: React.FC<CollectionItemsListProps> = ({
   items,
   address,
-  name
 }) => {
   return (
     <div className="hidden h-full flex-1 flex-col space-y-4 md:flex">
@@ -38,7 +36,6 @@ const CollectionsList: React.FC<CollectionItemsListProps> = ({
             key={item.token_id}
             address={address}
             item={item}
-            name={name}
           />
         ))}
       </div>

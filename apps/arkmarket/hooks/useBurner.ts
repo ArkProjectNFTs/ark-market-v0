@@ -89,11 +89,15 @@ export const useBurner = () => {
     async ({
       tokenId,
       tokenOwnerAddress,
-      contractAddress
+      contractAddress,
+      endDate,
+      price
     }: {
       tokenId: number;
       tokenOwnerAddress: string;
       contractAddress: string;
+      endDate: number;
+      price: bigint;
     }) => {
       if (account === undefined) {
         throw new Error("Burner not deployed");
@@ -105,8 +109,8 @@ export const useBurner = () => {
           seller: tokenOwnerAddress,
           collection: contractAddress,
           token_id: cairo.uint256(tokenId),
-          price: cairo.uint256(1000),
-          end_date: "0",
+          price: cairo.uint256(price),
+          end_date: endDate,
           // Change broker name for current env broker
           broker_name: shortString.encodeShortString(
             env.NEXT_PUBLIC_BROKER_NAME
@@ -187,7 +191,6 @@ export const useBurner = () => {
     setAccount(burner);
     setIsDeploying(false);
     Storage.set("burners", storage);
-    console.log("burner created: ", address);
 
     return address;
   }, []);

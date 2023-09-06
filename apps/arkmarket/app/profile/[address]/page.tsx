@@ -1,5 +1,4 @@
 import OwnerCollection from "./components/owner-collection";
-import OwnerHeader from "./components/owner-header";
 
 export default function Owned({
   params

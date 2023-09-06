@@ -16,7 +16,7 @@ const CollectionListHeader = () => {
         <Checkbox />
       </div>
       <div className="align flex w-64 flex-auto items-center ">Item</div>
-      <div className="align flex w-24 flex-auto items-center justify-end">
+      <div className="align flex w-28 flex-auto items-center justify-end">
         <span>Price</span>
         {getIsSorted === "desc" ? (
           <ArrowDownIcon className="ml-2 h-4 w-4" />

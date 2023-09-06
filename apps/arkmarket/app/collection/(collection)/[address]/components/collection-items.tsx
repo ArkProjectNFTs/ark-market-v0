@@ -6,9 +6,9 @@ import Collection from "./collection";
 
 interface CollectionItemsProps {
   address: string;
-  name: string;
 }
 
+//?status=buy_now
 const fetchNfts = async (address: string) => {
   const res = await fetch(
     `${env.NEXT_PUBLIC_ARK_API_DOMAIN}/v1/nfts/${address}`,
@@ -29,7 +29,6 @@ const fetchNfts = async (address: string) => {
 
 const CollectionItems: React.FC<CollectionItemsProps> = async ({
   address,
-  name
 }) => {
   const collectionItems = await fetchNfts(address);
 
@@ -37,7 +36,6 @@ const CollectionItems: React.FC<CollectionItemsProps> = async ({
     <Collection
       collectionItems={collectionItems.result}
       address={address}
-      name={name}
     />
   );
 };

@@ -57,6 +57,8 @@ export interface CollectionItem {
   token_address: string;
   token_id: string;
   owner?: string;
+  listing_price?: string;
+  listing_status?: string;
   normalized_metadata?: {
     name: string;
     description: string;

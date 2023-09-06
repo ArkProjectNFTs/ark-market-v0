@@ -1,68 +1,119 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { cairo } from "starknet";
+import { env } from "@/env.mjs";
+import { useToast } from "@/hooks/use-toast";
 import { useBurner } from "@/hooks/useBurner";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { useAccount, useContractWrite } from "@starknet-react/core";
-import { validateAndParseAddress } from "starknet";
-
-import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast";
+  useAccount,
+  useContractRead,
+  useContractWrite
+} from "@starknet-react/core";
+import { cairo, uint256, validateAndParseAddress } from "starknet";
+import { parseEther } from "viem";
 
-const TokenPublicActions = () => {
+import { convertWeiPriceToEth } from "@/lib/utils/convertPrice";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { EthIcon } from "@/components/ui/icons";
+
+interface TokenPublicActionsProps {
+  token: any;
+}
+
+const TokenPublicActions: React.FC<TokenPublicActionsProps> = ({ token }) => {
   const { address } = useAccount();
   const { toast } = useToast();
   const { buyItem } = useBurner();
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
 
+  const price = convertWeiPriceToEth(token.listing_price || "0");
+
+  const u256Price = cairo.uint256(token.listing_price);
   const { write } = useContractWrite({
     calls: [
       {
-        contractAddress:
-          "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
+        contractAddress: env.NEXT_PUBLIC_ETH_CONTRACT_ADDRESS,
         entrypoint: "approve",
         calldata: [
-          "0x06495ae175214d51ce8cff05ce3ea0c75aa50c7fdcd7531eee358f2065bf524b",
-          cairo.uint256(100)
+          env.NEXT_PUBLIC_OPERATOR_ADDRESS,
+          u256Price.low,
+          u256Price.high
         ]
       }
     ]
   });
 
+  const { data: amount } = useContractRead({
+    abi: [
+      {
+        type: "function",
+        name: "allowance",
+        inputs: [
+          {
+            name: "owner",
+            type: "core::starknet::contract_address::ContractAddress"
+          },
+          {
+            name: "spender",
+            type: "core::starknet::contract_address::ContractAddress"
+          }
+        ],
+        outputs: [
+          {
+            type: "core::uint256"
+          }
+        ],
+        state_mutability: "view"
+      }
+    ],
+    address: env.NEXT_PUBLIC_ETH_CONTRACT_ADDRESS,
+    functionName: "allowance",
+    args: [address, env.NEXT_PUBLIC_OPERATOR_ADDRESS],
+    watch: true
+  });
+
   const onItemBuy = async () => {
-    await write();
-    // try {
-    //   setIsSubmitting(true);
-    //   if (!address) throw new Error("Please connect your wallet first.");
-    //   await buyItem({
-    //     address: validateAndParseAddress(address)
-    //   });
-    //   toast({
-    //     title: "Item bought",
-    //     description: "You have successfully bought this item."
-    //   });
-    //   setIsSubmitting(false);
-    // } catch (error: any) {
-    //   setIsSubmitting(false);
-    //   toast({
-    //     title: "Error",
-    //     description: error.message
-    //   });
-    // }
+    if (amount === undefined) {
+      await write();
+    }
+    setIsSubmitting(true);
   };
+
+  useEffect(() => {
+    const buyItemAsync = async () => {
+      try {
+        if (!address) throw new Error("Please connect your wallet first.");
+        await buyItem({
+          address: validateAndParseAddress(address)
+        });
+        toast({
+          title: "Item bought",
+          description: "You have successfully bought this item."
+        });
+        setIsSubmitting(false);
+      } catch (error: any) {
+        setIsSubmitting(false);
+        toast({
+          title: "Error",
+          description: error.message
+        });
+      }
+    };
+    if (amount !== undefined && isSubmitting) {
+      buyItemAsync();
+    }
+  }, [amount, isSubmitting, address, buyItem, toast]);
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Listed for 4.245 $7.0K</CardTitle>
-        <CardDescription>Expires in 3d</CardDescription>
+        <CardTitle>
+          <div className="flex items-center">
+            <span>Listed for {price ? price : "N/A"}</span>
+            <EthIcon />
+          </div>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col space-y-6">

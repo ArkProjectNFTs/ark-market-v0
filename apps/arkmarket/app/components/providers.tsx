@@ -14,7 +14,7 @@ const Providers: React.FC<ProvidersProps> = ({ children }) => {
   return (
     <ArkProvider>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <ArkKitProvider> {children}</ArkKitProvider>
+        <ArkKitProvider>{children}</ArkKitProvider>
       </ThemeProvider>
     </ArkProvider>
   );

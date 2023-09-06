@@ -1,9 +1,13 @@
-import { PropsWithChildren } from "react";
+import * as React from "react";
 
 import { env } from "@/env.mjs";
 import { Collection } from "@/types";
 
 import CollectionHeader from "./components/collection-header";
+
+interface PageProps {
+  params: { address: string };
+}
 
 const getCollection = async (address: string) => {
   const res = await fetch(
@@ -19,14 +23,12 @@ const getCollection = async (address: string) => {
   return res.json();
 };
 
-interface ProfileLayoutProps {
+interface CollectionLayoutProps {
+  children: React.ReactNode;
   params: { address: string };
 }
 
-const ProfileLayout: React.FC<PropsWithChildren<ProfileLayoutProps>> = async ({
-  params,
-  children
-}) => {
+const CollectionLayout: React.FC<CollectionLayoutProps> = async ({ children, params }) => {
   const collection = (await getCollection(params.address)) as Collection;
 
   return (
@@ -37,4 +39,4 @@ const ProfileLayout: React.FC<PropsWithChildren<ProfileLayoutProps>> = async ({
   );
 };
 
-export default ProfileLayout;
+export default CollectionLayout;

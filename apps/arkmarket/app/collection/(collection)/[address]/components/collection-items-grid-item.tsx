@@ -7,6 +7,7 @@ import { env } from "@/env.mjs";
 import { CollectionItem } from "@/types";
 
 import { removeLeadingZeros } from "@/lib/utils";
+import { convertWeiPriceToEth } from "@/lib/utils/convertPrice";
 import {
   Card,
   CardContent,
@@ -19,14 +20,13 @@ import Image from "@/components/ui/image";
 interface CollectionItemsGridItemProps {
   item: CollectionItem;
   address: string;
-  name: string;
 }
 
 const CollectionItemsGridItem: React.FC<CollectionItemsGridItemProps> = ({
   item,
   address,
-  name
 }) => {
+  const price = convertWeiPriceToEth(item.listing_price || "0");
   return (
     <Link href={`/collection/${address}/${item.token_id}`}>
       <Card className="rounded hover:border-foreground">
@@ -73,10 +73,13 @@ const CollectionItemsGridItem: React.FC<CollectionItemsGridItemProps> = ({
             </>
           )}
         </CardContent>
-        <CardFooter className="px-2 pb-2 pt-2">
-          <span className="text-xs font-semibold">{`${name} #${removeLeadingZeros(
-            item.token_id
-          )}`}</span>
+        <CardFooter className="px-2 pb-2 pt-2 flex flex-col items-start">
+          <span className="text-xs font-semibold">{item?.normalized_metadata?.name}</span>
+          {item.listing_price !== "" ? (
+            <span className="float-right text-xs text-muted-foreground">
+              {price} ETH
+            </span>
+          ) :(<span className="float-right text-xs text-muted-foreground">{" - "}</span>)}
         </CardFooter>
       </Card>
     </Link>
