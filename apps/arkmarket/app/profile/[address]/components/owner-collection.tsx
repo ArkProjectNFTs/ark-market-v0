@@ -1,6 +1,7 @@
 import React from "react";
 
 import { env } from "@/env.mjs";
+import { validateAndParseAddress } from "starknet";
 
 import OnwerCollectionItems from "./owner-collection-items";
 
@@ -31,7 +32,8 @@ const OwnerCollection: React.FC<CollectionItemsProps> = async ({
   address,
   name
 }) => {
-  const collectionItems = await fetchNfts(address);
+  const validAddress = validateAndParseAddress(address);
+  const collectionItems = await fetchNfts(validAddress);
   return (
     <OnwerCollectionItems
       collectionItems={collectionItems}

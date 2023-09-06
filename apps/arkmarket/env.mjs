@@ -25,7 +25,8 @@ export const env = createEnv({
     NEXT_PUBLIC_ARK_CONTRACT_ADDRESS: z.string(),
     NEXT_PUBLIC_BROKER_NAME: z.string(),
     NEXT_PUBLIC_ARK_CHAIN_ID: z.string(),
-    NEXT_PUBLIC_OPERATOR_ADDRESS: z.string()
+    NEXT_PUBLIC_OPERATOR_ADDRESS: z.string(),
+    NEXT_PUBLIC_ETH_CONTRACT_ADDRESS: z.string()
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -45,6 +46,8 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
     NEXT_PUBLIC_BROKER_NAME: process.env.NEXT_PUBLIC_BROKER_NAME,
     NEXT_PUBLIC_ARK_CHAIN_ID: process.env.NEXT_PUBLIC_ARK_CHAIN_ID,
-    NEXT_PUBLIC_OPERATOR_ADDRESS: process.env.NEXT_PUBLIC_OPERATOR_ADDRESS
+    NEXT_PUBLIC_OPERATOR_ADDRESS: process.env.NEXT_PUBLIC_OPERATOR_ADDRESS,
+    NEXT_PUBLIC_ETH_CONTRACT_ADDRESS:
+      process.env.NEXT_PUBLIC_ETH_CONTRACT_ADDRESS
   }
 });
