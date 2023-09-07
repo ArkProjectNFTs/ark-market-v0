@@ -54,6 +54,24 @@ mod executor {
     #[external(v0)]
     impl ExecutorImpl of IExecutor<ContractState> {
 
+        fn update_messaging_address(ref self: ContractState, msger_address: ContractAddress) {
+            assert(
+                starknet::get_caller_address() == self.admin_address.read(),
+                'Unauthorized admin address'
+            );
+
+            self.messaging_address.write(msger_address);
+        }
+
+        fn update_eth_address(ref self: ContractState, eth_address: ContractAddress) {
+            assert(
+                starknet::get_caller_address() == self.admin_address.read(),
+                'Unauthorized admin address'
+            );
+
+            self.eth_contract_address.write(eth_address);
+        }
+
         fn update_sequencer_address(ref self: ContractState, sequencer_address: ContractAddress) {
             assert(
                 starknet::get_caller_address() == self.admin_address.read(),

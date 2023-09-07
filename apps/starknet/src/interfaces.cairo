@@ -17,6 +17,8 @@ trait IExecutor<T> {
     fn execute_buy_order(ref self: T, order: OrderExecute);
     fn update_sequencer_address(ref self: T, sequencer_address: ContractAddress);
     fn update_orderbook_address(ref self: T, orderbook_address: ContractAddress);
+    fn update_messaging_address(ref self: T, msger_address: ContractAddress);
+    fn update_eth_address(ref self: T, eth_address: ContractAddress);
 }
 
 #[starknet::interface]
