@@ -50,7 +50,6 @@ mod executor {
         self.messaging_address.write(messaging_address);
     }
 
-
     #[external(v0)]
     impl ExecutorImpl of IExecutor<ContractState> {
 

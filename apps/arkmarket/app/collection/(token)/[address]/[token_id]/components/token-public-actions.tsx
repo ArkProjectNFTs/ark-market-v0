@@ -9,7 +9,7 @@ import {
   useContractRead,
   useContractWrite
 } from "@starknet-react/core";
-import { cairo, uint256, validateAndParseAddress } from "starknet";
+import { cairo, validateAndParseAddress } from "starknet";
 import { parseEther } from "viem";
 
 import { convertWeiPriceToEth } from "@/lib/utils/convertPrice";
@@ -26,8 +26,8 @@ const TokenPublicActions: React.FC<TokenPublicActionsProps> = ({ token }) => {
   const { toast } = useToast();
   const { buyItem } = useBurner();
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
-
   const price = convertWeiPriceToEth(token.listing_price || "0");
+  const bigNumberPrice = parseEther(price);
 
   const u256Price = cairo.uint256(token.listing_price);
   const { write } = useContractWrite({
@@ -44,7 +44,7 @@ const TokenPublicActions: React.FC<TokenPublicActionsProps> = ({ token }) => {
     ]
   });
 
-  const { data: amount } = useContractRead({
+  const { data } = useContractRead({
     abi: [
       {
         type: "function",
@@ -73,8 +73,10 @@ const TokenPublicActions: React.FC<TokenPublicActionsProps> = ({ token }) => {
     watch: true
   });
 
+  const amount = data as bigint | undefined;
+  const isAllowed = amount && amount >= bigNumberPrice;
   const onItemBuy = async () => {
-    if (amount === undefined) {
+    if (!isAllowed) {
       await write();
     }
     setIsSubmitting(true);
@@ -85,6 +87,7 @@ const TokenPublicActions: React.FC<TokenPublicActionsProps> = ({ token }) => {
       try {
         if (!address) throw new Error("Please connect your wallet first.");
         await buyItem({
+          order_hash: token.listing_order_hash,
           address: validateAndParseAddress(address)
         });
         toast({
@@ -103,7 +106,7 @@ const TokenPublicActions: React.FC<TokenPublicActionsProps> = ({ token }) => {
     if (amount !== undefined && isSubmitting) {
       buyItemAsync();
     }
-  }, [amount, isSubmitting, address, buyItem, toast]);
+  }, [amount, isSubmitting, address, buyItem, toast, token]);
 
   return (
     <Card>

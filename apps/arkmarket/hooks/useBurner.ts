@@ -71,7 +71,7 @@ export const useBurner = () => {
     }
 
     const { transaction_hash } = await account.execute({
-      contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
+      contractAddress: env.NEXT_PUBLIC_ARK_OB_CONTRACT_ADDRESS,
       entrypoint: "register_broker",
       calldata: CallData.compile({
         name: shortString.encodeShortString(env.NEXT_PUBLIC_BROKER_NAME),
@@ -103,7 +103,7 @@ export const useBurner = () => {
         throw new Error("Burner not deployed");
       }
       const result = await account.execute({
-        contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
+        contractAddress: env.NEXT_PUBLIC_ARK_OB_CONTRACT_ADDRESS,
         entrypoint: "add_order_listing",
         calldata: CallData.compile({
           seller: tokenOwnerAddress,
@@ -127,16 +127,21 @@ export const useBurner = () => {
   );
 
   const buyItem = useCallback(
-    async ({ address }: { address: string }) => {
+    async ({
+      address,
+      order_hash
+    }: {
+      address: string;
+      order_hash: string;
+    }) => {
       if (account === undefined) {
         throw new Error("Burner not deployed");
       }
       const result = await account.execute({
-        contractAddress: env.NEXT_PUBLIC_ARK_CONTRACT_ADDRESS,
+        contractAddress: env.NEXT_PUBLIC_ARK_OB_CONTRACT_ADDRESS,
         entrypoint: "submit_order_buy",
         calldata: CallData.compile({
-          order_listing_hash:
-            "0x1d754530a860554fa548286877c63cf3da711a1bfb6f4ca5595fe258513b0cc",
+          order_listing_hash: order_hash,
           buyer: address,
           // Broker footprint.
           broker_name: env.NEXT_PUBLIC_BROKER_NAME,

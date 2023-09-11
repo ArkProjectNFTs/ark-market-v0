@@ -73,26 +73,6 @@ const TokenOwnerActions: React.FC<TokenOwnerActionsProps> = ({
               <Button onClick={() => triggerListing()}>List Item</Button>
             )}
           </div>
-          <div className="flex items-center justify-between py-2 text-sm">
-            <div className="flex w-32 flex-col">
-              <span className="text-xs text-muted-foreground">Expiration</span>
-              <span className="font-semibold">3 days</span>
-            </div>
-            <div className="flex w-32 flex-col">
-              <span className="text-xs text-muted-foreground">Listed</span>
-              <span className="font-semibold">5h ago</span>
-            </div>
-            <div className="flex w-32 flex-col">
-              <span className="text-xs text-muted-foreground">Created by</span>
-              <span className="font-semibold">Team Everai</span>
-            </div>
-            <div className="flex w-32 flex-col">
-              <span className="text-xs text-muted-foreground">
-                Floor Difference
-              </span>
-              <span className="font-semibold">+1%</span>
-            </div>
-          </div>
         </div>
       </CardContent>
     </Card>

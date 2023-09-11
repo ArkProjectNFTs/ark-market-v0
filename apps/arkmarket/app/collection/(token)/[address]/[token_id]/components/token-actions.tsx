@@ -17,6 +17,7 @@ const TokenActions: React.FC<TokenActionsProps> = ({
   token,
   contractAddress
 }) => {
+  console.log(token);
   const { address } = useAccount();
   const [walletAddress, setWalletAddress] = React.useState<string>("");
   React.useEffect(() => {
